@@ -1,0 +1,25 @@
+.search-width {
+  min-width: 30vw;
+}
+
+.nav-width {
+  width: inherit;
+}
+
+.no-border {
+  border: 0;
+  --tw-ring-inset: 0;
+}
+
+.no-border:focus {
+  border: 0;
+  --tw-ring-inset: 0;
+}
+
+.round-border {
+  border-radius: 3rem;
+}
+
+.width {
+  max-width: 80vh;
+}

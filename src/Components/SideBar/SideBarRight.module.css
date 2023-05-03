@@ -1,0 +1,6 @@
+.container {
+  overflow: hidden;
+  width: 90%;
+  /* left: -10vw; */
+  box-sizing: border-box;
+}

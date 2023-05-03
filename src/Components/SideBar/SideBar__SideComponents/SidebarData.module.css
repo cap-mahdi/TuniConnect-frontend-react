@@ -1,0 +1,8 @@
+.data-wrap {
+  box-sizing: border-box;
+  height: 8vh;
+  /* width: 60%; */
+}
+.hide {
+  display: none;
+}

@@ -1,0 +1,35 @@
+.side-main-container {
+  padding-top: 1vh;
+  display: flex;
+  /* background-color: #282c3428; */
+  box-sizing: border-box;
+  /* position: absolute; */
+  height: 85vh;
+  /* width: 100%; */
+}
+.main-wrapper {
+  background: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  /* overflow: hidden; */
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.leftSide {
+  /* background-color: red; */
+  width: 20%;
+  box-sizing: border-box;
+}
+
+.centerDiv {
+  /* background-color: rgb(13, 161, 21); */
+  /* padding: 0 1%; */
+  width: 60%;
+  box-sizing: border-box;
+}
+
+.rightSide {
+  /* background-color: rgb(79, 31, 141); */
+  width: 20rem;
+  box-sizing: border-box;
+}
