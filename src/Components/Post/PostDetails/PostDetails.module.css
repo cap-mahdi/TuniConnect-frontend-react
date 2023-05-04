@@ -1,0 +1,7 @@
+.post_details{
+    display: flex;
+    justify-content: space-around;
+}
+.button-clicked{
+    color: rgb(58, 0, 111);
+}
