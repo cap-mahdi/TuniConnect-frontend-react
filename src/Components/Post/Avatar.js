@@ -3,7 +3,7 @@ function Avatar(props){
     const SIZE = props.size || 2;
     const size = {
         width: `${SIZE}rem`,
-        height: `${SIZE}rem`
+        height: `${SIZE}rem`        
     }
     return(
         <div>

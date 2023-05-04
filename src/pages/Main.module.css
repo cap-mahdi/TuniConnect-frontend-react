@@ -15,6 +15,7 @@
   box-sizing: border-box;
 }
 
+
 .leftSide {
   /* background-color: red; */
   width: 20%;
@@ -26,6 +27,10 @@
   /* padding: 0 1%; */
   width: 60%;
   box-sizing: border-box;
+  overflow: scroll;
+}
+.centerDiv::-webkit-scrollbar {
+  display: none;
 }
 
 .rightSide {

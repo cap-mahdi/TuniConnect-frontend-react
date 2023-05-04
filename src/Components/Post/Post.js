@@ -63,7 +63,7 @@ function Post(){
         <div>
         <div class={"flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] " + styles["layout"]}>
             <div class="p-4 md:p-5">
-                <Poster image="https://assets-fr.imgfoot.com/media/cache/1200x1200/lionel-messi-2223-4.jpg" imageSize={3.875} />
+                <Poster image="" imageSize={3.875} />
                 <PostBody
                     image="https://assets-fr.imgfoot.com/media/cache/1200x1200/lionel-messi-2223-4.jpg"
                 />
