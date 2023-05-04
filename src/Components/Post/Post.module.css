@@ -1,0 +1,10 @@
+.post_image{
+    width: 300px;
+    border-radius: 20px;
+    margin: auto;
+}
+.layout{
+    width: 520px;
+    margin: auto;
+    margin-bottom: 20px;
+}

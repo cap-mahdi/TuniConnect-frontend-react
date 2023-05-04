@@ -5,6 +5,7 @@ import HomePage from "./pages/Home";
 import ProfilePage from "./pages/Profile";
 
 import Button from "./Components/UI/Buttons/Button";
+import Post from "./Components/Post/Post";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ function App() {
       <h1>Doesn't change with route</h1>
       <Button></Button>
       <RouterProvider router={router} />
+      <Post />
     </>
   );
 }

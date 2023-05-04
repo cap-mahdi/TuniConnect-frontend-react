@@ -1,0 +1,6 @@
+.comment{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgb(232, 232, 232);
+}
