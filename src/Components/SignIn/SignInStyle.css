@@ -1,0 +1,65 @@
+/* body{
+    height: 100vh;
+    width: 100%;
+} */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(115deg, #56d8E4 10%, #9f019f);
+    padding: 30px;
+}
+
+.signInForm {
+    background: white;
+    width: 500px;
+    /*  position: absolute;
+    top: 10%;
+    left: 35%;
+    right: 50%; */
+    padding: 30px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+
+
+
+.container {
+    display: flex;
+}
+
+.text {
+    background: none;
+    height: 600px;
+    width: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background:none;
+}
+
+
+.text .text-1,
+.text .text-2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    background: none;
+}
+
+.text .text-2 {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+@media(max-width: 768px){
+    .text{
+        display: none;
+    }
+}
