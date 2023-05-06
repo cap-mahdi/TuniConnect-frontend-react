@@ -19,7 +19,7 @@ const baseUrl = 'http://localhost:8000';
 
 export async function getData(uri) {
   try {
-    const response = await axios.get(baseUrl + uri);
+    const response = (await axios.get(baseUrl + uri));
     return response;
   } catch (error) {
     console.log(error);

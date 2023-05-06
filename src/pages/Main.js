@@ -9,8 +9,8 @@ import SideBarRight from '../Components/SideBar/SideBarRight';
 
 import styles from './Main.module.css';
 import SideBarLeftData from './Data/Data';
+import SignUpPage from './SignUpPage';
 // import SideBarRightData from './Data/Data';
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -20,26 +20,18 @@ const router = createBrowserRouter([
     path: '/profile',
     element: <ProfilePage />,
   },
+  {
+    path: '/signup',
+    element: <SignUpPage />,
+  }
 ]);
 
 const Main = (props) => {
   return (
     <>
-      <div className={`${styles['main-wrapper']}`}>
-        <Navigation />
-        <div className={`${styles['side-main-container']}`}>
-          <div className={`${styles['leftSide']}`}>
-            <SideBarLeft data={SideBarLeftData} />
-          </div>
-          <div className={`${styles['centerDiv']}`}>
+
             <RouterProvider router={router} />
-          </div>
-          <div className={`${styles['rightSide']}`}>
-            {' '}
-            <SideBarRight data={SideBarLeftData} />
-          </div>
-        </div>
-      </div>
+
     </>
   );
 };
