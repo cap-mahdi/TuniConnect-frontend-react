@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import HomePage from './Home';
-import ProfilePage from './Profile';
+import ProfilePage from './ProfilePage';
 import Navigation from '../Components/Navigation';
 import SideBarLeft from '../Components/SideBar/SideBarLeft';
 import SideBarRight from '../Components/SideBar/SideBarRight';
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: '/profile',
+    path: '/profile/:id',
     element: <ProfilePage />,
   },
   {

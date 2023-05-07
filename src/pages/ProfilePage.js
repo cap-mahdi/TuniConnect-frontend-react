@@ -6,9 +6,24 @@ import SideBarRight from '../Components/SideBar/SideBarRight';
 import SideBarLeftData from './Data/Data';
 
 import styles from './Main.module.css';
+import Profile from '../Components/Profile/Profile';
+import { useParams } from 'react-router-dom';
+import { getMember } from '../api/Accounts/accountsController';
+import { fetchData } from '../api/utilities';
+import { useEffect, useState } from 'react';
+const ProfilePage = (props) => {
+  const { id } = useParams();
+  console.log(id);
 
+  const [data, setData] = useState();
 
-const Profile = (props) => {
+  useEffect(() => {
+    fetchData(getMember, setData,10);
+  }, []);
+
+  useEffect(() => {
+    console.log(data);
+  }, data);
   return (
     <>
 
@@ -20,11 +35,7 @@ const Profile = (props) => {
           </div>
           <div className={`${styles['centerDiv']}`}>
             
-      {' '}
-      <h1 style={{ fontSize: '2rem' }}>Profile</h1>
-      <h1 style={{ fontSize: '2rem' }}>
-        -----: Go to <Link to="/"> Home</Link>
-      </h1>
+          <Profile />
           </div>
           <div className={`${styles['rightSide']}`}>
             {' '}
@@ -40,4 +51,4 @@ const Profile = (props) => {
     </>
   );
 };
-export default Profile;
+export default ProfilePage;

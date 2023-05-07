@@ -6,7 +6,7 @@ import SelectCountry from "./SelectCuntry";
 import ImagesHandler from "./ImagesHandler";
 import { useState } from "react";
 import { getMember, signUp, uploadImage } from "../../api/Accounts/accountsController";
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import {Routes, Route, useNavigate, Await} from 'react-router-dom';
 
 function SignUpForm() {
 
@@ -51,18 +51,9 @@ const handelSubmit = async (e) => {
     }
 
 
-    signUp(data).then((result)=>{
-      const idUser=result.data['id']
-      uploadImage(idUser,imageFile,'profile').then((res)=>{}).catch(e=>{console.log(e);})
-      uploadImage(idUser,coverImageFile,'cover').then((res)=>{}).catch(e=>{console.log(e);})
-      navigate('/')
+    await signUp(data,coverImageFile,imageFile)
     
-    }).catch(e=>{
-      console.log(e);
-      
-    })
-    
-    };
+  }
 
     const cancelBtnHandler=()=>{
       navigate('/')
