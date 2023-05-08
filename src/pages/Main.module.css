@@ -38,3 +38,31 @@
   width: 20rem;
   box-sizing: border-box;
 }
+
+
+
+
+/* for sign up page
+make it in the middle of the page
+, make it responsive
+,add some animation
+and add border
+*/
+/* Path: src\pages\SignUp.module.css */
+.signUp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+  padding: 2rem;
+  background: linear-gradient(115deg, #56d8E4 10%, #9f019f);
+}
+.signUp-wrapper {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  display: inline-flex;
+}
+
+

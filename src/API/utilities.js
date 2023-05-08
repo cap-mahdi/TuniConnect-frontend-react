@@ -6,7 +6,7 @@ import axios from 'axios';
  * @param {*} setState Where to save data
  */
 
-export async function fetchData(getData, setState) {
+export async function fetchData(getData, setState,id=0) {
   try {
     const response = await getData();
     if(response.data)
@@ -38,8 +38,7 @@ export async function getData(uri) {
 
 export async function postData(uri, data) {
   try {
-    const response = await axios.post(baseUrl + uri, data);
-    return response;
+    return await axios.post(baseUrl + uri, data);
   } catch (error) {
     console.log("error", error);
   }

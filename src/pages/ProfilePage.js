@@ -1,32 +1,41 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { useState } from 'react';
-import { Link  , Outlet} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 import Navigation from '../Components/Navigation';
 import SideBarLeft from '../Components/SideBar/SideBarLeft';
 import SideBarRight from '../Components/SideBar/SideBarRight';
-import PostInput from '../Components/PostInput/PostInput';
+
+import SideBarLeftData from './Data/Data';
 
 import styles from './Main.module.css';
-import SideBarLeftData from './Data/Data';
-import SignUpPage from './SignUpPage';
-// import SideBarRightData from './Data/Data';
+import Profile from '../Components/Profile/Profile';
+import { useParams } from 'react-router-dom';
+import { getMember } from '../api/Accounts/accountsController';
+import { fetchData } from '../api/utilities';
+import { useEffect, useState } from 'react';
+const ProfilePage = (props) => {
+  const { id } = useParams();
+  console.log(id);
 
+  const [data, setData] = useState();
 
+  useEffect(() => {
+    fetchData(getMember, setData,10);
+  }, []);
 
-
-const Main = (props) => {
+  useEffect(() => {
+    console.log(data);
+  }, data);
   return (
     <>
-      <div className={`${styles['main-wrapper']}`}>
+
+<div className={`${styles['main-wrapper']}`}>
         <Navigation />
         <div className={`${styles['side-main-container']}`}>
           <div className={`${styles['leftSide']}`}>
             <SideBarLeft data={SideBarLeftData} />
           </div>
           <div className={`${styles['centerDiv']}`}>
-          
-            <Outlet/>
+            
+          <Profile />
           </div>
           <div className={`${styles['rightSide']}`}>
             {' '}
@@ -34,7 +43,12 @@ const Main = (props) => {
           </div>
         </div>
       </div>
+
+
+
+
+
     </>
   );
 };
-export default Main;
+export default ProfilePage;

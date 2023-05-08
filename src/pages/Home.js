@@ -40,7 +40,16 @@ const Home = (props) => {
   }
   return (
     <>
-      <h1 style={{ fontSize: '2rem' }}>Home</h1>
+
+
+<div className={`${styles['main-wrapper']}`}>
+        <Navigation />
+        <div className={`${styles['side-main-container']}`}>
+          <div className={`${styles['leftSide']}`}>
+            <SideBarLeft data={SideBarLeftData} />
+          </div>
+          <div className={`${styles['centerDiv']}`}>
+          <h1 style={{ fontSize: '2rem' }}>Home</h1>
       <h1 style={{ fontSize: '2rem' }}>
         {' '}
         -----: Go to <Link to="/profile"> Profile</Link>
