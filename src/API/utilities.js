@@ -16,6 +16,15 @@ export async function fetchData(getData, setState) {
   }
 }
 
+export async function fetchDataWithArgs(getData, setState, args) {
+  try {
+    const response = await getData(args);
+    setState(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 const baseUrl = 'http://localhost:8000';
 
 export async function getData(uri) {

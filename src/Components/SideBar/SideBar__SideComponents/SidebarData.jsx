@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { datas } from '../Data';
 import { Link } from 'react-router-dom';
 import styles from './SidebarData.module.css';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const SidebarData = ({ toggle, data, width }) => {
   const datas = data;
@@ -14,6 +15,7 @@ const SidebarData = ({ toggle, data, width }) => {
     <>
       {datas.map((data) => {
         return (
+          // <Link to={data.link}>
           <div
             className={` 
            sidebar left-4  bottom-4 ${styles['data-wrap']}`}
@@ -28,6 +30,7 @@ const SidebarData = ({ toggle, data, width }) => {
               {data.text}
             </div>
           </div>
+          /* </Link> */
         );
       })}
     </>
