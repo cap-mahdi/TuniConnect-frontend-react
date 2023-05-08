@@ -2,5 +2,6 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background-color: rgb(232, 232, 232);
+    background-color: rgb(241, 241, 241);
+    border-radius: 0;
 }

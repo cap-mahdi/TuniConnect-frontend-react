@@ -1,11 +1,32 @@
-import React from "react";
+import React,{useState} from "react";
 import styles from "./Post.module.css"
 function PostBody(props){
+    const maxLength = 50;
+    const message =props.post.text;    
+    const output = message.length > maxLength ? message.substring(0,maxLength): message;
+    const [body, setBody] = useState(output);
+    const [buttonMessage,setButtonMessage] = useState("see more");
+    function onClickHandler(){
+        if(body.length>maxLength){
+            setBody(message.substring(0,maxLength))
+            setButtonMessage("see more")
+        }
+        else{
+            setBody(message)
+            setButtonMessage("see less")
+        }
+    }
     return <div>
-        <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec efficitur lorem, in molestie nisl. Nam cursus fermentum mattis. Ut placerat nisi dignissim libero finibus vestibulum. Cras eu lacus sit amet turpis tempus iaculis a non diam. Curabitur vitae elit commodo, luctus risus non, tempus enim. Integer vitae massa in nulla rhoncus facilisis quis vel urna. In in consequat justo, et vulputate urna. Vivamus auctor urna sed leo blandit eleifend. Sed faucibus ac sem sit amet placerat. Sed iaculis lectus sagittis libero cursus, vitae rhoncus eros vehicula.
+        <p style={{margin:"10px 25px"} }>
+        {body}
+        <br /> 
+        {output !== message 
+                && <a 
+                onClick={onClickHandler}
+                className="inline-flex items-center   text-sm font-medium border text-blue-600 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-600 ">  {buttonMessage}</a> }
     </p>
-    <img class={styles["post_image"]} style={{marginTop: "px"}} src={props.image} alt="Post image" />
+    
+    {props.post.photos.length!=0 && <img className={styles["post_image"]} style={{marginTop: "px"}} src={`http://localhost:8000/postsImages/${props.post.photos[0]}`} alt="Post image" />}
     </div>
 
 }

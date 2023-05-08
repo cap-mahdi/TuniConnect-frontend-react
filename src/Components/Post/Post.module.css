@@ -8,3 +8,9 @@
     margin: auto;
     margin-bottom: 20px;
 }
+
+.file_button{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+}

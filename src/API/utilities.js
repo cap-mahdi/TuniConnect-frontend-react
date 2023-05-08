@@ -9,9 +9,10 @@ import axios from 'axios';
 export async function fetchData(getData, setState) {
   try {
     const response = await getData();
-    setState(response);
+    if(response.data)
+      setState(response.data);
   } catch (error) {
-    console.log(error);
+    console.log("error ", error);
   }
 }
 
@@ -31,7 +32,7 @@ export async function postData(uri, data) {
     const response = await axios.post(baseUrl + uri, data);
     return response;
   } catch (error) {
-    console.log(error);
+    console.log("error", error);
   }
 }
 
@@ -51,4 +52,30 @@ export async function putData(uri, data) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export function timeAgo(date) {
+  const seconds = Math.floor((new Date() - date) / 1000);
+  const intervals = [
+    { label: 'year', seconds: 31536000 },
+    { label: 'month', seconds: 2592000 },
+    { label: 'week', seconds: 604800 },
+    { label: 'day', seconds: 86400 },
+    { label: 'hour', seconds: 3600 },
+    { label: 'minute', seconds: 60 },
+    { label: 'second', seconds: 1 }
+  ];
+
+  for (let i = 0; i < intervals.length; i++) {
+    const interval = intervals[i];
+    const count = Math.floor(seconds / interval.seconds);
+    if (count >= 1) {
+      if (count === 1) {
+        return `${count} ${interval.label} ago`;
+      } else {
+        return `${count} ${interval.label}s ago`;
+      }
+    }
+  }
+  return 'just now';
 }

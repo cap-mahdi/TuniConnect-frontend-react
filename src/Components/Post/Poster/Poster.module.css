@@ -4,3 +4,10 @@
     font-weight: lighter;
     color: rgb(159, 159, 159);
 }
+
+.share_span{
+    font-size: 10px;
+    font-weight: normal;
+    color: rgb(125, 125, 125);
+    font-style: italic;
+}

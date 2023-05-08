@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import HomePage from './Home';
@@ -6,6 +7,7 @@ import ProfilePage from './Profile';
 import Navigation from '../Components/Navigation';
 import SideBarLeft from '../Components/SideBar/SideBarLeft';
 import SideBarRight from '../Components/SideBar/SideBarRight';
+import PostInput from '../Components/PostInput/PostInput';
 
 import styles from './Main.module.css';
 import SideBarLeftData from './Data/Data';
@@ -32,6 +34,7 @@ const Main = (props) => {
             <SideBarLeft data={SideBarLeftData} />
           </div>
           <div className={`${styles['centerDiv']}`}>
+          
             <RouterProvider router={router} />
           </div>
           <div className={`${styles['rightSide']}`}>

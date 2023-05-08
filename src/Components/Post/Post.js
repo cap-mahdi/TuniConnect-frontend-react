@@ -1,72 +1,130 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import PostBody from "./PostBody";
 import PostDetails from "./PostDetails/PostDetails";
 import Comment from "./Comment/Comment";
 import Poster from "./Poster/Poster";
 import styles from "./Post.module.css"
-
+import PostSharer from "./PostSharer";
+import PostInput from "../PostInput/PostInput";
 import Input from "./Input";
+import { addComment, deletePost, getComments, likeDislikePost, sharePost, updatePost } from "../../API/Posts/PostController";
+import { fetchData, timeAgo } from "../../API/utilities";
+import PostSharedBadge from "./Badge";
+import {v4} from "uuid"
+import DeleteButton from "./DeleteButton";
+import Badge from "./Badge";
+import UpdatePost from "./UpdatePost";
+import Spin from "../Spin";
 
 
-function Post(){
-    const commentsDB=[
-        "test3 ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec efficitur lorem, in molestie nisl. Nam cursus fermentum mattis. Ut placerat nisi dignissim libero finibus vestibulum. Cras eu lacus sit amet turpis tempus iaculis a non diam. Curabitur vitae elit commodo, luctus risus non, tempus enim. Integer vitae massa in nulla rhoncus facilisis quis vel urna. In in consequat justo, et vulputate urna. Vivamus auctor urna sed leo blandit eleifend. Sed faucibus ac sem sit amet placerat. Sed iaculis lectus sagittis libero cursus, vitae rhoncus eros vehicula.",
-        "test2 ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec efficitur lorem, in molestie nisl. Nam cursus fermentum mattis. Ut placerat nisi dignissim ",
-        "test ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec efficitur lorem, in molestie nisl. Nam cursus fermentum mattis. Ut placerat nisi dignissim libero finibus vestibulum. Cras eu lacus sit amet turpis tempus iaculis a non diam. Curabitur vitae elit commodo, luctus risus non, tempus enim. Integer vitae massa in nulla rhoncus facilisis quis vel urna. In in consequat justo, et vulputate urna. Vivamus auctor urna sed leo blandit eleifend. Sed faucibus ac sem sit amet placerat. Sed iaculis lectus sagittis libero cursus, vitae rhoncus eros vehicula."
+function Post(props){
+    const post = props.post;
+    const userId = props.userId;
     
-    ]
+
 
     /*************LIKE BUTTON*****************/ 
-    const [likeNumbers,setLikeNumbers] = useState(3);
-    const[isLiked,setIsLiked] = useState(false);
-    //when the button is clicked,we check if the post is liked or not,if it is liked we decrease the number of likes by 1,if it is not liked we increase the number of likes by 1
-    function likeHandler(){
-        if(isLiked){
-            setLikeNumbers((likeNumbers)=> likeNumbers-1)
-        }   
-        else{
-            setLikeNumbers((likeNumbers)=> likeNumbers+1)
+    const [likeNumbers,setLikeNumbers] = useState(post.likers.length);
+    const liked =  ()=>{
+        let likers = post.likers;
+        for(let i=0;i<likers.length;i++){
+            if(likers[i].id == userId)
+                return true;
         }
-        setIsLiked((isLiked)=> !isLiked)
+        return false;
+    }
+
+    const[isLiked,setIsLiked] = useState(liked());
+    //when the button is clicked,we check if the post is liked or not,if it is liked we decrease the number of likes by 1,if it is not liked we increase the number of likes by 1
+    async function likeHandler(){
+        setIsLiked((isLiked)=> !isLiked);
+        setLikeNumbers((likeNumbers)=> isLiked? likeNumbers-1 : likeNumbers+1);
+        await likeDislikePost(post.id,userId);
+        
     }
 
     /*************COMMENT BUTTON*****************/ 
-    const [commentNumbers,setCommentNumbers] = useState(20);
+    const [commentNumbers,setCommentNumbers] = useState(post.comments.length);
     const [commentShown,setCommentShown] = useState(false);
-    const [comments,setComments] = useState(commentsDB);
+    const [comments,setComments] = useState(post.comments);
+
+
+
     //when the button is clicked,we check if the comments are shown or not,if they are shown we hide them,if they are not shown we show them
     function commentHandler(){
         setCommentShown((commentShown)=> !commentShown);
     }
 
     //when the user submits a comment,we add it to the comments array,we increment the number of comments and we show the comments if they are not shown
-    function onAddingComment(comment){
-        setComments((comments)=> [...comments,comment])
+    async function onAddingComment(comment){
         setCommentNumbers((commentNumbers)=> commentNumbers+1)
         if(!commentShown)
             setCommentShown((commentShown)=> true);
-    }
+            setComments(null);
+        await addComment(post.id,userId,comment);
+        await fetchData(()=>getComments(post.id),setComments);
+        
+        
+        
+    }   
 
 
     /*************SHARE BUTTON*****************/ 
-    const [shareNumbers,setShareNumbers] = useState(30);
+    const [shareNumbers,setShareNumbers] = useState(post.shares);
     const [isShared,setIsShared] = useState(false);
+    const [isSharing,setIsSharing] = useState("start");
     //when the button is clicked,we check if the post is already shared or not,if it is shared nothing will happen (you can only delete the shared post from your profile),if it is not shared we increase the number of shares by 1
-    function shareHandler(){
-        if(!isShared){
-            setShareNumbers((shareNumbers)=> shareNumbers+1)
-            setIsShared((isShared)=> !isShared)
-        }    
+    async function shareHandler(){
+        if(isShared)
+            return;
+        setIsSharing("sharing");
+        setIsShared((isShared)=> true);
+        await sharePost(post.id,userId);  
+        setShareNumbers((shareNumbers)=> shareNumbers+1);
+        setIsShared((isShared)=> false);
+        setIsSharing("done");
+        setTimeout(()=>{setIsSharing("start")},1000);
     }
+    
+    const [isDeleting,setIsDeleting] = useState("start");
+    async function deleteHandler(){
+        console.log("deleting post");
+        setIsSharing("deleting");
+        await deletePost(post.id);
+        setIsSharing("done");
+        setTimeout(()=>{setIsSharing("start")},1000);
+        props.regetPosts();
+        
+    }
+
+    const [isEditing,setIsEditing] = useState(false);
+    async function editHandler(postId,text){
+        if(isEditing)
+            return;
+        setIsEditing((isEditing)=> true);
+
+    }
+    async function updateHandler(text){
+        await updatePost(post.id,{"text":text});
+        await props.regetPosts();
+
+    }
+
+
 
     return (
         <div>
-        <div class={"flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] " + styles["layout"]}>
-            <div class="p-4 md:p-5">
-                <Poster image="" imageSize={3.875} />
+        <div  className={"flex flex-col bg-white border shadow-sm rounded-xl  " + styles["layout"]}>
+        {isSharing=="sharing" ? <Badge posted = {true} text={"sharing post..."}/> : isSharing=="done" ? <Badge posted = {false} text={"post shared!"}/> : null }
+        {isDeleting=="deleting" ? <Badge posted = {true} text={"deleting post..."}/> : isDeleting=="done" ? <Badge posted = {false} text={"post deleted!"}/> : null }
+        {post.isShared && <PostSharer onClick={deleteHandler} isOwner={(userId==post.sharer.id)} sharer={post.sharer} time={timeAgo(new Date(post.date))} />}
+        <div className="p-4 md:p-5">
+        <Poster isEdited={post.post.edited} onClickUpdate={editHandler} onClick={deleteHandler} isOwner={!post.isShared && userId==post.post.owner.id} size={post.isShared?40:50} poster={post.post.owner} time={timeAgo(new Date(post.post.date))} />
+            {isEditing ?<UpdatePost onClick={updateHandler} post={post.post} /> :
                 <PostBody
-                    image="https://assets-fr.imgfoot.com/media/cache/1200x1200/lionel-messi-2223-4.jpg"
+                    post={post.post}
                 />
+            }
             </div>
             <PostDetails
                 likeNumbers={likeNumbers}
@@ -82,10 +140,10 @@ function Post(){
                 isShared = {isShared}
              />
 
-            {commentShown && comments.map((body,index)=> <Comment key={index} body={body} />)
-           }
+            {commentShown && (comments != null? comments.map((comment)=> <Comment key={comment.id} comment={comment} />) : <Spin />)}
             <Input
                 onSumbit={onAddingComment}
+                userId={userId}
             />
         </div>
     </div>
