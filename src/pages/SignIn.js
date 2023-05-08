@@ -1,16 +1,16 @@
 import React from "react";
 import SignInForm from '../Components/SignIn/SignInForm'
-import '../Components/SignIn/SignInStyle.css'
+import  styles from  '../Components/SignIn/SignInStyle.module.css'
 
 function SignIn() {
     return (
         <>
-            <div className="container">
-                <div className="text">
-                    <div className="text-1">Every new friend is a <br/> new adventure</div>
-                    <div className="text-2">Let's get connected</div>
+            <div className={`${styles["body_Singin"]}`} style={{display:"flex"}}>
+                <div className={styles["text"]}>
+                    <div className={styles["text-1"]}>Every new friend is a <br/> new adventure</div>
+                    <div className={styles["text-2"]}>Let's get connected</div>
                 </div>
-                <div className="form">
+                <div >
                     <SignInForm />
                 </div>
             </div>

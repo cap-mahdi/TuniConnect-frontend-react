@@ -3,7 +3,7 @@
     width: 100%;
 } */
 
-body {
+.body_Singin {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -27,9 +27,7 @@ body {
 
 
 
-.container {
-    display: flex;
-}
+
 
 .text {
     background: none;
@@ -41,11 +39,11 @@ body {
     align-items: center;
     justify-content: center;
     background:none;
+    margin-right: 50px;
 }
 
 
-.text .text-1,
-.text .text-2 {
+.text-1,.text-2 {
     font-size: 26px;
     font-weight: 600;
     color: #fff;
@@ -53,7 +51,7 @@ body {
     background: none;
 }
 
-.text .text-2 {
+.text-2 {
     font-size: 15px;
     font-weight: 500;
 }

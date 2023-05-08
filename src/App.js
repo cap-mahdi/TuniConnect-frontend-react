@@ -6,8 +6,11 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import WebS from './WebS';
 import Home from "./pages/Home" ; 
-import Profile from './pages/Profile';
+import Profile from './pages/ProfilePage';
 import Messanger from './pages/MessangerSection' ; 
+import SignIn from './pages/SignIn'
+import SignUpForm from './Components/SignUp/SignUpForm';
+import SignUp from './pages/SignUpPage';
 
 const router = createBrowserRouter([
    {
@@ -27,7 +30,13 @@ const router = createBrowserRouter([
   }, {
     path: '/carpool',
     element: <h1> carpool</h1>,
-  },]   } , 
+  },]   } , {
+    path:"/signin"   , 
+    element : <SignIn />
+  },{
+    path:"/signup",
+    element: <SignUp />
+  }
   
 ]);
 

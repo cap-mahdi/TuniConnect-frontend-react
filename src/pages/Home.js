@@ -40,20 +40,7 @@ const Home = (props) => {
   }
   return (
     <>
-
-
-<div className={`${styles['main-wrapper']}`}>
-        <Navigation />
-        <div className={`${styles['side-main-container']}`}>
-          <div className={`${styles['leftSide']}`}>
-            <SideBarLeft data={SideBarLeftData} />
-          </div>
-          <div className={`${styles['centerDiv']}`}>
-          <h1 style={{ fontSize: '2rem' }}>Home</h1>
-      <h1 style={{ fontSize: '2rem' }}>
-        {' '}
-        -----: Go to <Link to="/profile"> Profile</Link>
-      </h1>
+     
       <PostInput regetPosts={regetPosts} />
       <ListPost isShowing={isShowing} onClick={showMore} posts={posts} userId={currentUserId} regetPosts={regetPosts} />
       
@@ -64,4 +51,3 @@ const Home = (props) => {
   );
 };
 export default Home;
-

@@ -6,7 +6,7 @@ import axios from 'axios';
  * @param {*} setState Where to save data
  */
 
-export async function fetchData(getData, setState,id=0) {
+export async function fetchData(getData, setState) {
   try {
     const response = await getData();
     if(response.data)
