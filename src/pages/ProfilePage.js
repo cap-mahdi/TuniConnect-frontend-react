@@ -18,7 +18,7 @@ const ProfilePage = (props) => {
   const [data, setData] = useState();
 
   useEffect(() => {
-    fetchDataWithArgs(getMember, setData,2);
+    fetchDataWithArgs(getMember, setData,id);
   }, []);
 
   useEffect(() => {
@@ -27,9 +27,7 @@ const ProfilePage = (props) => {
   return (
     <>
 
-          <Profile />
-         
-
+          <Profile data={data}/>
 
 
     </>

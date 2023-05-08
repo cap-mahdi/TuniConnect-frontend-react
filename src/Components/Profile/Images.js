@@ -2,14 +2,15 @@ import React from "react";
 
 
 
-const CoverImage = (props) => {
+const CoverImage = ({imageUrl}) => {
+  const defaultCoverImage = "https://images.ctfassets.net/7thvzrs93dvf/wpImage18536/5bad272ce24d9ce3b6b76a78ada6fa7b/abstract-pyrimid-upsplash.png?w=900&h=225&q=90&fm=png";
     return (
         <section className="relative block" style={{ height: "500px" }}>
         <div
-          className="absolute top-0 w-full h-full bg-center bg-cover"
+          className="absolute top-0 w-full h-full bg-center bg-cover justify-center"
           style={{
-            backgroundImage:
-              "url('"+props.imageUrl+"')"
+            backgroundImage:imageUrl? `url(http://localhost:8000/images/${imageUrl})` : `url(${defaultCoverImage})`
+
           }}
         >
           <span

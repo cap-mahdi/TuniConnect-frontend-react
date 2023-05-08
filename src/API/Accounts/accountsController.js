@@ -40,3 +40,7 @@ export async function signUp(inter,coverImageFile,imageFile) {
 export async function getMember(id) {
   return getData('/member/'+id);
 }
+export async function getFriends(id){
+  console.log("here");
+  return getData("/member/get/friends/"+id);
+}
