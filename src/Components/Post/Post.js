@@ -7,7 +7,7 @@ import styles from "./Post.module.css"
 import PostSharer from "./PostSharer";
 import PostInput from "../PostInput/PostInput";
 import Input from "./Input";
-import { addComment, deletePost, getComments, likeDislikePost, sharePost, updatePost } from "../../API/Posts/PostController";
+import { addComment, deletePost, getComment, getComments, likeDislikePost, sharePost, updatePost } from "../../API/Posts/PostController";
 import { fetchData, timeAgo } from "../../API/utilities";
 import PostSharedBadge from "./Badge";
 import {v4} from "uuid"
@@ -60,9 +60,11 @@ function Post(props){
         setCommentNumbers((commentNumbers)=> commentNumbers+1)
         if(!commentShown)
             setCommentShown((commentShown)=> true);
-            setComments(null);
-        await addComment(post.id,userId,comment);
-        await fetchData(()=>getComments(post.id),setComments);
+        const res = await addComment(post.id,userId,comment);
+        console.log(res.data.id);
+        await fetchData(()=>getComment(res.data.id),(newComment)=>{
+            console.log("newComment",newComment);
+            setComments((oldComments)=>[newComment,...oldComments])});
         
         
         

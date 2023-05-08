@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState  , useEffect} from 'react';
 import { BiChevronLeft } from 'react-icons/bi';
 import SidebarData from './SideBar__SideComponents/SidebarData';
 import UserProfile from './SideBar__SideComponents/UserProfile';
@@ -8,10 +8,12 @@ import st from './SideBarRight.module.css';
 import InvitationRequest from '../Invitation/InvitationRequest';
 const SideBarRight = (props) => {
   const [toggle, setToggle] = useState(false);
+  
 
   return (
     <div className={`sidebar-container  ${styles.container} ${st['container']}`}>
-      <InvitationRequest />
+      
+      <InvitationRequest  />
       {'                '}
       <li
         class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9 sidebar "
@@ -38,7 +40,7 @@ const SideBarRight = (props) => {
           </svg>
         </span>
       </li>
-      {'               '}
+    
     </div>
   );
 };

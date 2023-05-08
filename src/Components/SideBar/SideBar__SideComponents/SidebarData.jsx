@@ -15,7 +15,7 @@ const SidebarData = ({ toggle, data, width }) => {
     <>
       {datas.map((data) => {
         return (
-          // <Link to={data.link}>
+          <Link to={data.link} >
           <div
             className={` 
            sidebar left-4  bottom-4 ${styles['data-wrap']}`}
@@ -30,7 +30,7 @@ const SidebarData = ({ toggle, data, width }) => {
               {data.text}
             </div>
           </div>
-          /* </Link> */
+          </Link>
         );
       })}
     </>

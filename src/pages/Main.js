@@ -1,10 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link  , Outlet} from 'react-router-dom';
 
-import HomePage from './Home';
-import ProfilePage from './Profile';
-import MessangerPage from './MessangerSection';
 import Navigation from '../Components/Navigation';
 import SideBarLeft from '../Components/SideBar/SideBarLeft';
 import SideBarRight from '../Components/SideBar/SideBarRight';
@@ -14,20 +11,8 @@ import styles from './Main.module.css';
 import SideBarLeftData from './Data/Data';
 // import SideBarRightData from './Data/Data';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <HomePage />,
-  },
-  {
-    path: '/profile',
-    element: <ProfilePage />,
-  },
-  {
-    path: '/messanger',
-    element: <MessangerPage />,
-  },
-]);
+
+
 
 const Main = (props) => {
   return (
@@ -40,7 +25,7 @@ const Main = (props) => {
           </div>
           <div className={`${styles['centerDiv']}`}>
           
-            <RouterProvider router={router} />
+            <Outlet/>
           </div>
           <div className={`${styles['rightSide']}`}>
             {' '}

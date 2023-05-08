@@ -49,3 +49,8 @@ export async function getPostPaginated(userId,pageNumber,limit = 5) {
 export async function countPosts(userId) {
   return getData(`/shared/post/count/all/${userId}`);
 }
+
+//get comment by id
+export async function getComment(id){
+  return getData(`/comment/get/${id}`);
+}

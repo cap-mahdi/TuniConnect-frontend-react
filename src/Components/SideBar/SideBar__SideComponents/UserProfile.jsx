@@ -1,6 +1,7 @@
 import React from 'react';
 import user from '../assets/user.jpg';
 import styles from './UserProfile.module.css';
+import { Link } from 'react-router-dom';
 
 const UserProfile = ({ toggle, width }) => {
   const responsive = {
@@ -8,6 +9,7 @@ const UserProfile = ({ toggle, width }) => {
   };
   console.log('rerender' + responsive.hide);
   return (
+    <Link to= "/profile"> 
     <div
       className={`flex gap-5 items-center ${
         toggle ? 'bg-none transition-all duration-300 delay-200' : 'bg-white rounded-xl p-2'
@@ -22,6 +24,7 @@ const UserProfile = ({ toggle, width }) => {
         <span className="text-[0.75rem] opacity-60">abee2002@gmail.com</span>
       </div>
     </div>
+    </Link>
   );
 };
 

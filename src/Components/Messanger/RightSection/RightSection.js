@@ -77,9 +77,9 @@ export default function RightSection() {
             name="message"
             className={`block rounded-md px-3 py-2 text-base font-medium text-black-300  ${style['input']}`}
           ></input>
-          <div className={`${style['send-container']}`}>
+          <button className={`${style['send-container']}`}>
             <BiPaperPlane className={`h-6 w-6`} />
-          </div>
+          </button>
         </form>
       </div>
     </>
