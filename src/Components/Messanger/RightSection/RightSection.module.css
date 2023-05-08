@@ -1,0 +1,40 @@
+.container {
+  height: 100%;
+  width: 100%;
+  /* background-color: blue; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.messages-container {
+  /* background-color: black; */
+  height: 95%;
+  /* width: 100%; */
+}
+.input-container {
+  /* background-color: aqua; */
+  display: flex;
+  /* width: 100%; */
+}
+.input {
+  /* height: 4vh;
+  width: calc(2vh * 10vw); */
+}
+.send-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.5rem;
+}
+
+.messages-container {
+  display: flex;
+  flex-direction: column-reverse;
+
+  overflow: scroll;
+  padding-bottom: 1rem;
+}
+.messages-container::-webkit-scrollbar {
+  display: none;
+}

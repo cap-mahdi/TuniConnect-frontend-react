@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import HomePage from './Home';
 import ProfilePage from './Profile';
+import MessangerPage from './MessangerSection';
 import Navigation from '../Components/Navigation';
 import SideBarLeft from '../Components/SideBar/SideBarLeft';
 import SideBarRight from '../Components/SideBar/SideBarRight';
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <ProfilePage />,
+  },
+  {
+    path: '/messanger',
+    element: <MessangerPage />,
   },
 ]);
 
