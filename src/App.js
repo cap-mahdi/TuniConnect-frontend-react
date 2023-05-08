@@ -11,26 +11,26 @@ import Messanger from './pages/MessangerSection' ;
 import SignIn from './pages/SignIn'
 import SignUpForm from './Components/SignUp/SignUpForm';
 import SignUp from './pages/SignUpPage';
-
+import ProtectedPage from './API/ProtectedPage';
 const router = createBrowserRouter([
    {
     path : '/' ,
-    element :<Main />,
+    element :<ProtectedPage> <Main /></ProtectedPage>,
   children : [{
     path: '/',
-    element: <Home />,
+    element:<ProtectedPage>  <Home /></ProtectedPage> ,
   },
   {
     path: '/profile/:id',
-    element: <Profile />,
+    element: <ProtectedPage> <Profile /></ProtectedPage> ,
   },
   
   {
     path: '/messanger',
-    element: <Messanger />,
+    element: <ProtectedPage> <Messanger /></ProtectedPage> ,
   }, {
     path: '/carpool',
-    element: <h1> carpool</h1>,
+    element:<ProtectedPage>  <h1> carpool</h1> </ProtectedPage>,
   },]   } , {
     path:"/signin"   , 
     element : <SignIn />

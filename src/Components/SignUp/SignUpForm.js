@@ -5,7 +5,8 @@ import styles from './SignUp.module.css';
 import SelectCountry from "./SelectCuntry";
 import ImagesHandler from "./ImagesHandler";
 import { useState } from "react";
-import { getMember, signUp, uploadImage } from "../../API/Accounts/accountsController";
+import { getMember, uploadImage } from "../../API/Accounts/accountsController";
+import  AuthController from "../../API/Accounts/AuthController";
 import {Routes, Route, useNavigate, Await} from 'react-router-dom';
 
 function SignUpForm() {
@@ -51,8 +52,13 @@ const handelSubmit = async (e) => {
     }
 
 
-    await signUp(data,coverImageFile,imageFile)
-    navigate("/")
+    const res = await AuthController.signUp(data,coverImageFile,imageFile);
+    if(res.data.token){
+      AuthController.setToken(res.data.token);
+      navigate('/');
+    }else{
+      navigate('/signup');
+    }
   }
 
     const cancelBtnHandler=()=>{

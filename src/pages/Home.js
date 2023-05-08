@@ -12,12 +12,13 @@ const Home = (props) => {
   const [posts, setPosts] = useState(null);
   const currentUserId= 2;
   useEffect( () => {
+    
     fetchData(()=>getPostPaginated(currentUserId,0), setPosts);
   }, []);
 
-  // useEffect(() => {
-       
-  //  }, [posts]);
+  useEffect(() => {
+       console.log(posts);
+   }, [posts]);
 
   async function  regetPosts(){
     setPosts(null);

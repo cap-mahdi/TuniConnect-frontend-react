@@ -4,7 +4,7 @@ import { RiCouponLine } from 'react-icons/ri';
 import { FiUser, FiLogOut } from 'react-icons/fi';
 import { AiOutlineMessage } from 'react-icons/ai';
 import { BsFolder, BsWallet2 } from 'react-icons/bs';
-
+import AuthController from '../../API/Accounts/AuthController';
 export const datas = [
   {
     id: 1,
@@ -50,8 +50,8 @@ export const datas = [
   },
   {
     id: 8,
-    icon: <FiLogOut />,
+    icon: <FiLogOut onClick={AuthController.removeToken} />,
     text: 'Logout',
-    link: '/',
+    link: '/sginin',
   },
 ];

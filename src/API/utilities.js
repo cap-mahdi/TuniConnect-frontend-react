@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import AuthController from './Accounts/AuthController';
+axios.defaults.headers.common['Authorization'] = `Bearer ${AuthController.getToken()}`;
 /**
  *
  * @param {*} getData Async function to acess backend route
