@@ -9,7 +9,7 @@ import axios from 'axios';
 export async function fetchData(getData, setState) {
   try {
     const response = await getData();
-    setState(response);
+    setState(response.data);
   } catch (error) {
     console.log(error);
   }

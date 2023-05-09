@@ -22,7 +22,7 @@ function Comment(props){
     return (
         <div class={"bg-gray-800/[.1] border border-gray-200 text-sm text-gray-600 rounded-md p-4 dark:bg-gray-900/[.1] dark:border-gray-700 dark:text-white "+ styles.comment} role="alert">
             <Poster image="https://www.mykhel.com/thumb/250x90x250/football/players/4/19054.jpg" imageSize={2.375} />
-            <p style={{textAlign: "center"},{marginLeft: "20px"}}>
+            <p style={{textAlign: "center",marginLeft: "20px"}}>
                 {body}
                 {output !== message 
                 && <a 

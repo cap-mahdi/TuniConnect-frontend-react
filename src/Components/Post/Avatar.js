@@ -6,11 +6,11 @@ function Avatar(props){
         height: `${SIZE}rem`        
     }
     return(
-        <div>
+        <>
         {
             props.image ? 
             (<div class="relative inline-block">
-                <img class="inline-block  rounded-full ring-2 ring-white dark:ring-gray-800" style={size}  src={props.image} />
+                <img class="inline-block  rounded-full ring-2 ring-white dark:ring-gray-800" style={size}  src={props.image}/>
             </div>) :
              (
                 <span class="inline-block rounded-full overflow-hidden" style={size} >
@@ -22,7 +22,7 @@ function Avatar(props){
             </span>
              )
         }
-        </div>
+        </>
     )
 }
 

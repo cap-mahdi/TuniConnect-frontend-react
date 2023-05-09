@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import HomePage from './Home';
 import ProfilePage from './Profile';
@@ -9,6 +8,7 @@ import SideBarRight from '../Components/SideBar/SideBarRight';
 
 import styles from './Main.module.css';
 import SideBarLeftData from './Data/Data';
+import CovoiturageHome from './CovoiturageHome';
 // import SideBarRightData from './Data/Data';
 
 const router = createBrowserRouter([
@@ -20,6 +20,12 @@ const router = createBrowserRouter([
     path: '/profile',
     element: <ProfilePage />,
   },
+  {
+    path: '/cov',
+    element: <CovoiturageHome/>
+  },
+  
+
 ]);
 
 const Main = (props) => {
