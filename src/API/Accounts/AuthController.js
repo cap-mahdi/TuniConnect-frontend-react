@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { getData, postData } from '../utilities';
 const baseUrl = 'http://localhost:8000';
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token') || ""}`;
 
 
 class AuthController {
-    static #isAuth = false;
-
+    
+    static #isAuth =  false; 
 
 
 static isAuthenticated() {
@@ -42,16 +43,26 @@ static async  signUp(inter,coverImageFile,imageFile){
 
     static async  getMemberByToken(){
         const response= await getData('/get-current-user');
-        if(response?.data?.token){
+        console.log('yoyoyoy'  , response);
+if(response?.data==="Invalid JWT Token"){
+    this.#isAuth = false;
+    return {auth:  false , data: null};
+}                    
+
+        if(response?.data){
             this.#isAuth = true;
-            return response.data;
+            return {
+                auth : true , 
+                data: response.data};
         }
         else{
             this.#isAuth = false;
-            return null;
+            return {auth:  false , data: null};
         }
-
+    
     }
+
+    
 
     static  getToken(){
         //get token from local storage
@@ -76,6 +87,8 @@ static async  signUp(inter,coverImageFile,imageFile){
         this.#isAuth = false;
 
     }
+
+   
 }
 
 export default AuthController;

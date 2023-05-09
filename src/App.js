@@ -15,22 +15,22 @@ import ProtectedPage from './API/ProtectedPage';
 const router = createBrowserRouter([
    {
     path : '/' ,
-    element :<ProtectedPage> <Main /></ProtectedPage>,
+    element :<ProtectedPage component = {Main}> </ProtectedPage>,
   children : [{
     path: '/',
-    element:<ProtectedPage>  <Home /></ProtectedPage> ,
+    element:<ProtectedPage component = {Home}>  </ProtectedPage> ,
   },
   {
     path: '/profile/:id',
-    element: <ProtectedPage> <Profile /></ProtectedPage> ,
+    element: <ProtectedPage component = {Profile}> </ProtectedPage> ,
   },
   
   {
     path: '/messanger',
-    element: <ProtectedPage> <Messanger /></ProtectedPage> ,
+    element: <ProtectedPage component = { Messanger}></ProtectedPage> ,
   }, {
     path: '/carpool',
-    element:<ProtectedPage>  <h1> carpool</h1> </ProtectedPage>,
+    element:<ProtectedPage component = {Messanger}>   </ProtectedPage>,
   },]   } , {
     path:"/signin"   , 
     element : <SignIn />

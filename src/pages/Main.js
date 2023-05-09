@@ -16,6 +16,8 @@ import SignUpPage from './SignUpPage';
 
 
 const Main = (props) => {
+  console.log("props,",props);
+  console.log("Log from main" , props.member);
   return (
     <>
       <div className={`${styles['main-wrapper']}`}>

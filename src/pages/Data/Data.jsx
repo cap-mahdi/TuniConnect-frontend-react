@@ -25,35 +25,12 @@ const data = [
     text: 'Car Pool',
     link : '/carpool'
   },
+  
   {
     id: 4,
-    icon: <FiUser />,
-    text: 'Team Member',
-    link : '/'
-  },
-  {
-    id: 5,
-    icon: <AiOutlineMessage />,
-    text: 'Messages',
-    link : '/'
-  },
-  {
-    id: 6,
-    icon: <BsFolder />,
-    text: 'File Manager',
-    link : '/'
-  },
-  {
-    id: 7,
-    icon: <BsWallet2 />,
-    text: 'Wallet',
-    link : '/'
-  },
-  {
-    id: 8,
     icon: <FiLogOut />,
     text: 'Logout',
-    link : '/'
+    link : '/signin'
   },
 ];
 
