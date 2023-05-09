@@ -7,7 +7,7 @@ import styles from "./Post.module.css"
 import PostSharer from "./PostSharer";
 import PostInput from "../PostInput/PostInput";
 import Input from "./Input";
-import { addComment, deletePost, getComment, getComments, likeDislikePost, sharePost, updatePost } from "../../API/Posts/PostController";
+import { addComment, deletePost, getComment, getComments, getPostOwner, likeDislikePost, sendNotification, sharePost, updatePost  , addNotification} from "../../API/Posts/PostController";
 import { fetchData, timeAgo } from "../../API/utilities";
 import PostSharedBadge from "./Badge";
 import {v4} from "uuid"
@@ -21,6 +21,18 @@ function Post(props){
     const post = props.post;
     const userId = props.userId;
     
+
+    //envoi de notification
+    async function sendNotification(idPost, type,  userId ){
+        const ownerId = await getPostOwner(idPost)
+        const postNotificationData = {
+            ownerId: ownerId,
+            type: type,
+            postId: idPost,
+            relatedTo: userId
+        }
+        await addNotification(postNotificationData)
+    }
 
 
     /*************LIKE BUTTON*****************/ 
@@ -86,6 +98,8 @@ function Post(props){
         setIsShared((isShared)=> false);
         setIsSharing("done");
         setTimeout(()=>{setIsSharing("start")},1000);
+        await sendNotification(post.id , "like" , userId)
+        
     }
     
     const [isDeleting,setIsDeleting] = useState("start");
