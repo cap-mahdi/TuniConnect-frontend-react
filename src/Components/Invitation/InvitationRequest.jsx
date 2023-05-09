@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react';
+import Avatar from "../Post/Avatar"
 import {
   BriefcaseIcon,
   CalendarIcon,
@@ -54,11 +55,11 @@ export default function InvitationRequest({ friendRequest, onChangeHandler  , id
         className={` sidebar  ${styles['invitation-container']}`}
         // key={data.id}
       >
-        <h2 className={`text-3xl font-bold leading-7 text-gray-900  ${styles['name']}`}>{friendRequest["sender"]["firstName"]} </h2>
+        <h2 className={`text-3xl font-bold leading-7 text-gray-900  ${styles['name']}`}>{friendRequest["sender"]["lastName"]}  {friendRequest["sender"]["firstName"]}</h2>
 
         <div className="mt-2 flex items-center text-sm text-gray-500">
-          <UserPlusIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-          sent you a friend request
+          <Avatar image={friendRequest["sender"]["profilePicture"]} size={20} />         
+         <span>sent you a friend request</span> 
         </div>
         <div className="mt-5 flex lg:ml-4 lg:mt-0">
           {status=="pending" ? (
