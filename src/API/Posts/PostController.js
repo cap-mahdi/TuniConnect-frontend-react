@@ -59,7 +59,6 @@ export async function getComment(id){
 export async function getPostOwner(postId){
   const resp= await getData(`/shared/post/get/${postId}`)
   const postData=resp["data"]
-  // console.log(postData["sharer"]["id"])
   return postData["sharer"]["id"]
 }
 

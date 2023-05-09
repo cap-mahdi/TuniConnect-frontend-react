@@ -14,16 +14,12 @@ export default function ProtectedPage(props) {
       })() ; 
   } , [])
   useEffect(()=>{
-    console.log("auth is ",auth);
   } ,  [auth]) ;
 
-  // console.log(AuthController.isAuthenticated())
   if (auth == null) {
     // Redirect to the sign-up page if the user is not authenticated
-    console.log("estana");
     return null;
   }else if (auth == false){
-    console.log("ha,ni lenna ");
     return <Navigate to="/signin" />;
   }
   const Children = props.component ; 

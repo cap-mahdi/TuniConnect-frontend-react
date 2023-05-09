@@ -24,7 +24,7 @@ const SideBarRight = (props) => {
   const [friendRequests, setFriendRequests] = useState(null)
 
   async function showInvits() {
-    const invitations = await fetchData(()=>getFriendRequests(2),setFriendRequests);
+    const invitations = await fetchData(()=>getFriendRequests(28),setFriendRequests);
   }
 
   useEffect(()=>{

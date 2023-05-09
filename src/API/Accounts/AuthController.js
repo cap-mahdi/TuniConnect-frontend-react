@@ -43,13 +43,14 @@ static async  signUp(inter,coverImageFile,imageFile){
 
     static async  getMemberByToken(){
         const response= await getData('/get-current-user');
-        console.log('yoyoyoy'  ,JSON.parse(response.data));
 if(response?.data==="Invalid JWT Token"){
     this.#isAuth = false;
     return {auth:  false , data: null};
 }                    
 
         if(response?.data){
+                    console.log('yoyoyoy'  ,JSON.parse(response.data));
+
             this.#isAuth = true;
             return {
                 auth : true , 
