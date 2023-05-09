@@ -6,7 +6,7 @@ function Avatar(props){
     }
 
     return(
-        <div>
+        <>
         {
             props.image ? 
             (<div className="relative inline-block">
@@ -22,7 +22,7 @@ function Avatar(props){
             </span>
              )
         }
-        </div>
+        </>
     )
 }
 

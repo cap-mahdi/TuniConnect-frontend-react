@@ -12,6 +12,7 @@ import SignIn from './pages/SignIn'
 import SignUpForm from './Components/SignUp/SignUpForm';
 import SignUp from './pages/SignUpPage';
 import ProtectedPage from './API/ProtectedPage';
+import CovoiturageHome from "./pages/CovoiturageHome"
 const router = createBrowserRouter([
    {
     path : '/' ,
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
     element: <ProtectedPage component = { Messanger}></ProtectedPage> ,
   }, {
     path: '/carpool',
-    element:<ProtectedPage component = {Messanger}>   </ProtectedPage>,
+    element:<ProtectedPage component = {CovoiturageHome}>   </ProtectedPage>,
   },]   } , {
     path:"/signin"   , 
     element : <SignIn />
