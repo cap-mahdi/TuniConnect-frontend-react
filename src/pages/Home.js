@@ -10,7 +10,7 @@ import PostInput from '../Components/PostInput/PostInput';
 import ListPost from '../Components/ListPost';
 const Home = (props) => {
   const [posts, setPosts] = useState(null);
-  const currentUserId= 2;
+  const currentUserId= 1;
   useEffect( () => {
     
     fetchData(()=>getPostPaginated(currentUserId,0), setPosts);

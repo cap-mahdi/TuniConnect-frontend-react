@@ -10,7 +10,7 @@ function Avatar(props){
         {
             props.image ? 
             (<div className="relative inline-block">
-                <img className="inline-block  rounded-full ring-2 ring-white " style={size}  src={`http://localhost:8000/profileImages/${props.image}`} />
+                <img className="inline-block  rounded-full ring-2 ring-white " style={size}  src={`http://localhost:8000/images/${props.image}`} />
             </div>) :
              (
                 <span className="inline-block rounded-full overflow-hidden" >

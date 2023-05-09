@@ -54,3 +54,26 @@ export async function countPosts(userId) {
 export async function getComment(id){
   return getData(`/comment/get/${id}`);
 }
+
+//get the owner of the post
+export async function getPostOwner(postId){
+  const resp= await getData(`/shared/post/get/${postId}`)
+  const postData=resp["data"]
+  // console.log(postData["sharer"]["id"])
+  return postData["sharer"]["id"]
+}
+
+
+//add notification
+export async function addNotification(data){
+  return postData(`/notifications/post_notification/add` , data)
+}
+
+
+//get all the member's notifications
+export async function getNotifications(memberId){
+  return getData(`http://127.0.0.1:8000/member/get/notification/${memberId}`)
+}
+
+
+//delete notification
