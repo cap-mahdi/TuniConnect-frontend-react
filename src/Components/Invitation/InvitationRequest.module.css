@@ -24,3 +24,18 @@
   margin: 0 0.5vh;
   font-size: calc(2vh * 1vw);
 }
+
+
+.accepted{
+  text-align: center;
+  background-color: rgb(142, 211, 142);
+      border-radius: 5px;
+  padding: 5px 15px;
+}
+
+.refused{
+  text-align: center;
+  background-color: rgb(243, 137, 137);
+    border-radius: 5px;
+      padding: 5px 15px;
+}

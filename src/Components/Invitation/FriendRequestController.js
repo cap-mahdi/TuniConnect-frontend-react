@@ -6,8 +6,8 @@ export async function sendFriendRequests(sender  ,receiver) {
 }
 
 //reply to a friend request
-export async function editFriendRequests(status, friendRequestId) {
-    return getData(`/member/get/friend/request/add`)
+export async function editFriendRequests(data) {
+    return postData(`/friend/request/edit` , data)
 }
 
 //get the friend requests
