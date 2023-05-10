@@ -49,7 +49,7 @@ if(response?.data==="Invalid JWT Token"){
 }                    
 
         if(response?.data){
-                    console.log('yoyoyoy'  ,JSON.parse(response.data));
+                   
 
             this.#isAuth = true;
             return {

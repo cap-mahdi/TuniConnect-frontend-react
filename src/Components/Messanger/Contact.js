@@ -1,10 +1,25 @@
-export default function Contact({ person }) {
+import avatar from '../../assets/avatar.svg';
+
+export default function Contact({ person, member, friend, activeRoom, setActiveRoom, room, onClick }) {
   return (
-    <li key={person.email} className="flex justify-between gap-x-6 py-5">
+    <button
+      key={room.id}
+      onClick={() => {
+        console.log('change to ', room);
+        onClick(room);
+      }}
+      className={`sidebar ${activeRoom?.id == room.id ? 'bg-gray-50' : ''}`}
+    >
       <div className="flex gap-x-4">
-        <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={person.imageUrl} alt="" />
+        <img
+          className="h-12 w-12 flex-none rounded-full bg-gray-50"
+          src={friend?.profilePicture ? `http://localhost:8000/images/${friend.profilePicture}` : avatar}
+          alt=""
+        />
         <div className="min-w-0 flex-auto">
-          <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
+          <p className="text-sm font-semibold leading-6 text-gray-900">
+            {friend.firstName} {friend.lastName}
+          </p>
         </div>
       </div>
       {/* <div className="hidden sm:flex sm:flex-col sm:items-end">
@@ -22,6 +37,6 @@ export default function Contact({ person }) {
         </div>
       )}
     </div> */}
-    </li>
+    </button>
   );
 }

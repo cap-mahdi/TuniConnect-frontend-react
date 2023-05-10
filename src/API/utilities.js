@@ -10,10 +10,9 @@ axios.defaults.headers.common['Authorization'] = `Bearer ${AuthController.getTok
 export async function fetchData(getData, setState) {
   try {
     const response = await getData();
-    if(response.data)
-      setState(response.data);
+    if (response.data) setState(response.data);
   } catch (error) {
-    console.log("error ", error);
+    console.log('error ', error);
   }
 }
 
@@ -39,9 +38,10 @@ export async function getData(uri) {
 
 export async function postData(uri, data) {
   try {
-    return await axios.post(baseUrl + uri, data);
+    const response = await axios.post(baseUrl + uri, data);
+    return response;
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error);
   }
 }
 
@@ -72,7 +72,7 @@ export function timeAgo(date) {
     { label: 'day', seconds: 86400 },
     { label: 'hour', seconds: 3600 },
     { label: 'minute', seconds: 60 },
-    { label: 'second', seconds: 1 }
+    { label: 'second', seconds: 1 },
   ];
 
   for (let i = 0; i < intervals.length; i++) {
