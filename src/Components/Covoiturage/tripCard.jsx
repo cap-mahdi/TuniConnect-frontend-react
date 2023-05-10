@@ -15,7 +15,7 @@ function TripCard({ id, trip, allTrips }) {
   const [imgSrc, setImgSrc] = useState('/down-arrow.png');
   const [isDeleted, setIsDeleted] = useState(false);
   const [isExpired, setIsExpired] = useState(false);
-  
+
   useEffect(() => {
     getRequest(id, trip.id).then((response) => {
       if (response.data.length !== 0) {
@@ -27,15 +27,14 @@ function TripCard({ id, trip, allTrips }) {
       }
     });
   }, []);
- 
 
-  useEffect(()=> {
+  useEffect(() => {
     const currentTimestamp = new Date().getTime();
     const departureTimestamp = new Date(trip.departureTime).getTime();
     if (currentTimestamp > departureTimestamp) {
       setIsExpired(true);
     }
-  }, [[trip.departureTime]])
+  }, [[trip.departureTime]]);
 
   useEffect(() => {
     if (trip.isDeleted) {
@@ -48,7 +47,6 @@ function TripCard({ id, trip, allTrips }) {
       getCovoituragesByID(trip.id).then((response) => setCarpoolRequests(response.data));
     }
   }, [showCarpoolRequests]);
-  
 
   const handleDelete = () => {
     console.log(trip.id);
@@ -63,11 +61,11 @@ function TripCard({ id, trip, allTrips }) {
   };
 
   if (isDeleted) {
-    return null; 
+    return null;
   }
 
   if (isExpired) {
-    return null; 
+    return null;
   }
 
   const handleRequest = () => {
@@ -131,13 +129,18 @@ function TripCard({ id, trip, allTrips }) {
               </div>
             </div>
             <div className="flex flex-col justify-between">
-              <div>
+              <div className='ml-3'>
                 <span class="font-bold text-lg">{trip.price} </span>
                 <span class="font-light text-sm">Dt</span>
               </div>
               <div title="places left" className="flex flex-row">
-                <Avatar image={'/pngegg.png'}></Avatar>
-                <span class="font-bold text-lg  ml-2">{trip.numberOfPlaces - trip.numberOfPlacesTaken}</span>
+                <div class="relative inline-block">
+                  <img
+                    class="inline-block rounded-full ring-2 ring-white dark:ring-gray-800 w-10 h-10 mr-5"
+                    src={'/pngegg.png'}
+                  />
+                </div>
+                <span class="font-bold text-lg me-5 -ml-3">{trip.numberOfPlaces - trip.numberOfPlacesTaken}</span>
               </div>
             </div>
           </div>
@@ -149,9 +152,9 @@ function TripCard({ id, trip, allTrips }) {
               <Avatar size={3} image={trip.driver.profilePicture}></Avatar>
               <span class="font-light text-lg ml-2">{`${trip.driver.firstName} ${trip.driver.lastName} ${trip.driver.phone}`}</span>
             </div>
-            <div className="flex flex-col lg:flex-row lg:justify-end lg:items-center w-3/4 lg:space-x-2">
+            <div className="flex flex-col lg:flex-row lg:justify-end lg:items-center w-3/4 lg:space-x-2 items-center">
               <button
-                class="bg-[#F4F5FA] py-3 rounded-full border border-[#F0F0F6] shadow-xl lg:w-2/5 w-56"
+                class="bg-[#F4F5FA] lg:py-3 py-2 rounded-full border border-[#F0F0F6] shadow-xl lg:w-2/5 w-44 lg:mb-0 mb-2"
                 disabled={requestStatus === 'sending' || requestStatus === 'sent'}
                 onClick={handleRequest}
               >
@@ -164,7 +167,7 @@ function TripCard({ id, trip, allTrips }) {
                 to={`/profile/${trip.driver.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="bg-[#F4F5FA] py-3 rounded-full border border-[#F0F0F6] shadow-xl lg:w-1/3 w-56 text-center"
+                class="bg-[#F4F5FA] lg:py-3 py-2 rounded-full border border-[#F0F0F6] shadow-xl lg:w-2/5 w-44 text-center"
               >
                 <button>Contact</button>
               </Link>
@@ -177,7 +180,7 @@ function TripCard({ id, trip, allTrips }) {
           </div>
         </div>
       </div>
-      <div style={!showCarpoolRequests ? { display: 'none' } : { display: 'flex' }} className='flex flex-col'>
+      <div style={!showCarpoolRequests ? { display: 'none' } : { display: 'flex' }} className="flex flex-col">
         {CarpoolRequests?.map((request) => (
           <RequestCard request={request}></RequestCard>
         ))}

@@ -1,16 +1,16 @@
 import React from "react";
 function Avatar(props){
-    const SIZE = props.size || 2;
-    const size = {
-        width: `${SIZE}rem`,
-        height: `${SIZE}rem`        
+    const size={
+        width: `${props.size}px`,
+        height: `${props.size}px`
     }
+
     return(
-        <div>
+        <>
         {
             props.image ? 
-            (<div class="relative inline-block">
-                <img class="inline-block  rounded-full ring-2 ring-white dark:ring-gray-800" style={size}  src={props.image} />
+            (<div className="relative inline-block">
+                <img className="inline-block  rounded-full ring-2 ring-white " style={size}  src={`http://localhost:8000/images/${props.image}`} />
             </div>) :
              (
                 <span class="inline-block rounded-full overflow-hidden" style={size} >
@@ -22,7 +22,7 @@ function Avatar(props){
             </span>
              )
         }
-        </div>
+        </>
     )
 }
 

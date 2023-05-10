@@ -33,7 +33,12 @@ function CovoiturageHome({ member }) {
         </Link>
         <button className="self-end" onClick={() => setShowModal2(true)}>
           <div className="flex flex-row">
-            <Avatar image={'button.png'} size={1.5}></Avatar>
+          <div class="relative inline-block">
+                  <img
+                    class="inline-block rounded-full w-7 h-7 mt-0.5"
+                    src={'/button.png'}
+                  />
+                </div>
             <span class="font-semibold text-lg ml-2 text-[#1F2937]">Add a new carpool</span>
           </div>
         </button>
