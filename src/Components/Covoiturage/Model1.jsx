@@ -4,11 +4,11 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { postCovoiturage } from '../../API/Covoiturage/CovoiturageController';
 
-const Model1 = ({ id, isVisible, onClose }) => {
+const Model1 = ({ member_id, isVisible, onClose }) => {
   const [step, setStep] = useState(1);
   const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState('');
-  const [date, setDate] = React.useState(new Date());
+  const [date, setDate] = useState(new Date());
   const [numberOfPlaces, setNumberOfPlaces] = useState(1);
   const [price, setPrice] = useState(0);
 
@@ -22,22 +22,20 @@ const Model1 = ({ id, isVisible, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.target;
-  
-    if (form.checkValidity()) { 
-      postCovoiturage({
-        destination: destination,
-        departure: departure,
-        departure_time: date,
-        number_of_places: numberOfPlaces,
-        price: price,
-        driver_id: id,
-      });
-      handleReset();
-      onClose();
-    } else {
-      form.reportValidity(); 
-    }
+
+    const data = {
+      destination: destination,
+      departure: departure,
+      departure_time: date,
+      number_of_places: numberOfPlaces,
+      price: price,
+      driver_id: member_id,
+      description: '',
+    };
+    console.log(data);
+    postCovoiturage(data);
+    handleReset();
+    onClose();
   };
 
   const handleNext = () => {
@@ -79,7 +77,7 @@ const Model1 = ({ id, isVisible, onClose }) => {
                 type="text"
                 placeholder="Enter you starting point"
                 value={departure}
-                onChange={(e) => setDeparture(e.target.value)}
+                onChange={(e) => {setDeparture(e.target.value)}}
                 required
                 className="border border-gray-400 p-2 rounded-md w-2/3"
               />
@@ -110,7 +108,7 @@ const Model1 = ({ id, isVisible, onClose }) => {
                 type="text"
                 placeholder="Enter your destination"
                 value={destination}
-                onChange={(e) => setDestination(e.target.value)}
+                onInput={(e) => setDestination(e.target.value)}
                 required
                 className="border border-gray-400 p-2 rounded-md w-2/3"
               />
