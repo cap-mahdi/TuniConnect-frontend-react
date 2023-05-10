@@ -13,7 +13,8 @@ import { fetchDataWithArgs } from '../API/utilities';
 import { useEffect, useState } from 'react';
 const ProfilePage = (props) => {
   const { id } = useParams();
-  console.log(id);
+  console.log("profile id ", id);
+  console.log("profile page props" , props)
 
   const [data, setData] = useState();
 
@@ -21,13 +22,13 @@ const ProfilePage = (props) => {
     fetchDataWithArgs(getMember, setData,id);
   }, []);
 
-  useEffect(() => {
-    console.log(data);
-  }, [  data]);
+  // useEffect(() => {
+  //   console.log("wwwww" , data);
+  // }, [  data]);
   return (
     <>
 
-          <Profile data={data}/>
+          <Profile member= {props.member} data={data} handleChangeOnProfile={setData} profileId={id} />
 
 
     </>

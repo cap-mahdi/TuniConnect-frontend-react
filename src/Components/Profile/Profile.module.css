@@ -1,0 +1,33 @@
+.unsent {
+    display: inline-block;
+    text-decoration: none;
+    border: 2px solid #D9EDFF;
+    color: #339DFF;
+    font-size: 13px;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 100px;
+    padding: 0 22px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    background: #fff;
+    width: 170px;
+    margin-right: 40px;
+    
+}
+
+.unsent:hover {
+    box-shadow: 0 2px 4px rgba(83, 100, 255, 0.45);
+}
+
+.sent{
+    display: inline-block;
+        text-decoration: none;
+        color: #339DFF;
+        font-size: 13px;
+        text-align: center;
+        line-height: 38px;
+        border-radius: 100px;
+        padding: 0 22px;
+}
+

@@ -5,20 +5,56 @@ import ProfileImage from './ProfileImage';
 import { Link } from 'react-router-dom';
 import FriendsList from './FriendsList';
 import avatar from '../../assets/avatar.svg';
-import { fetchDataWithArgs } from '../../API/utilities';
+import { fetchDataWithArgs, getData, postData } from '../../API/utilities';
 import { getFriends } from '../../API/Accounts/accountsController';
+import styles from './Profile.module.css'
 
-//profile page with tailwind  cover image profile image and profile info and list of posts and friends
 
-const Profile = ({ data }) => {
+
+const Profile = ({ data, member, handleChangeOnProfile , profileId }) => {
   const [friends, setFriends] = useState([]);
+  const [friendRequestSent, setFriendRequestSent] = useState(false);
+  const [areFriends, setAreFriends] = useState(false)
+
+
+  async function verifyFriendship(id1, id2) {
+    const { data } = await getData(`/member/areFriends/${id1}/${id2}`)
+    setAreFriends(data.areFriends)
+  }
+
+  async function verifySendingFriendRequest(id1, id2) {
+    const { data } = await getData(`/friend/request/${id1}/sent_to/${id2}`)
+    setFriendRequestSent(data.sentRequest);
+  }
 
   useEffect(() => {
-    fetchDataWithArgs(getFriends, setFriends, 2);
+    fetchDataWithArgs(getFriends, setFriends, profileId);
+    verifyFriendship(member?.id,profileId);
+    verifySendingFriendRequest(member?.id, profileId);
   }, []);
+
+
   useEffect(() => {
     console.log(friends);
-  }, [friends]);
+  }, [friends, friendRequestSent, areFriends ]);
+
+
+  useEffect(() => {
+    console.log("YYOYO3 ", friendRequestSent );
+  }, [friendRequestSent]);
+
+  async function handleAddFriendButtonClick() {
+    const donnees = {
+      sender: member?.id,
+      receiver: data?.id
+    };
+    await postData("/friend/request/add", donnees)
+    setFriendRequestSent(true);
+
+    // handleChangeOnProfile()
+  }
+
+
 
   return (
     <main className="profile-page">
@@ -42,6 +78,22 @@ const Profile = ({ data }) => {
                 <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
                   <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i> {data?.address.city || '--'}{' '}
                   {data?.address.state || '--'} {data?.address.country || '--'}
+                </div>
+                <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase" >
+                  {data?.id !== member?.id ? (
+                    !areFriends ? (
+                      <button
+                        className={friendRequestSent ? `${styles['sent']}` : `${styles['unsent']}`}
+                        onClick={handleAddFriendButtonClick}
+                        disabled={friendRequestSent}
+                      >
+                        {friendRequestSent ? 'Friend Request Sent' : 'Send friend request'}
+                      </button>
+                    ) : (
+                      "You are already friends"
+                    )
+                  ) : ("")
+                  }
                 </div>
               </div>
             </div>

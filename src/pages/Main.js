@@ -16,8 +16,7 @@ import SignUpPage from './SignUpPage';
 
 
 const Main = (props) => {
-  console.log("props,",props);
-  console.log("Log from main" , props.member);
+
   return (
     <>
       <div className={`${styles['main-wrapper']}`}>
@@ -32,7 +31,7 @@ const Main = (props) => {
           </div>
           <div className={`${styles['rightSide']}`}>
             {' '}
-            <SideBarRight data={SideBarLeftData} />
+            <SideBarRight data={SideBarLeftData} memberId={props?.member.id} />
           </div>
         </div>
       </div>

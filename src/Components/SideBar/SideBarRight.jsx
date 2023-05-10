@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState  , useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { BiChevronLeft } from 'react-icons/bi';
 import SidebarData from './SideBar__SideComponents/SidebarData';
 import UserProfile from './SideBar__SideComponents/UserProfile';
@@ -10,45 +10,62 @@ import { getFriendRequests } from '../Invitation/FriendRequestController';
 import { fetchData } from '../../API/utilities';
 import Spin from '../../Components/Spin'
 
-function ListOfInvits({friendRequests , setFriendRequests})
-{
-  const invits=friendRequests.map((friendRequest ,index)=>{
-    return <InvitationRequest friendRequest={friendRequest} onChangeHandler={setFriendRequests} id={index} />
-  })
-  return invits
-}
+
 
 
 const SideBarRight = (props) => {
+
+  function ListOfInvits({ friendRequests, setFriendRequests }) {
+    async function hadleReplyeFriendRequest(id) {
+      const newFriendRequests = friendRequests.splice(id, 1);
+      setFriendRequests(newFriendRequests)
+    }
+
+    const invits = friendRequests.map((friendRequest, index) => {
+      return <InvitationRequest friendRequest={friendRequest} onChangeHandler={() => { hadleReplyeFriendRequest(index) }} id={index} />
+    })
+    return invits
+  }
+
+  const { memberId } = props;
   const [toggle, setToggle] = useState(false);
   const [friendRequests, setFriendRequests] = useState(null)
 
-  async function showInvits() {
-    const invitations = await fetchData(()=>getFriendRequests(28),setFriendRequests);
+  async function showInvits(memberId) {
+    const invitations = await fetchData(() => getFriendRequests(memberId), setFriendRequests);
   }
 
-  useEffect(()=>{
-    console.log("test");
-    showInvits()
-  },[] )
-  useEffect(()=>{
-    console.log(friendRequests);
-  },[friendRequests])
 
- 
-  
+  useEffect(() => {
+    showInvits(memberId)
+  }, [])
 
- if (friendRequests==null){
-  return <Spin/>
- }
+  useEffect(() => {
+    showInvits(memberId)
+  }, [friendRequests])
+
+
+  if (friendRequests == null) {
+    return <Spin />
+  }
+  if (friendRequests.length == 0) {
+    return (
+      <div className={`sidebar-container  ${styles.container} ${st['container']}`}>
+        <div className={`${styles['friend-requests']}`} >
+          you don't have any friend requests
+        </div>
+      </div>
+
+    )
+  }
+
+
 
   return (
     <div className={`sidebar-container  ${styles.container} ${st['container']}`}>
-      
-      {/* <InvitationRequest friendRequest={friendRequests[0]} />  */}
 
-     <ListOfInvits friendRequests={friendRequests} onChangeHandler={setFriendRequests} />
-    
+      <ListOfInvits friendRequests={friendRequests} onChangeHandler={setFriendRequests} />
+
     </div>
   );
 };
