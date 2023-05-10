@@ -31,3 +31,7 @@ export async function declineCov(sender_id, cov_id) {
 export async function deleteCovoiturage(id) {
   return await deleteData(`/covoiturage/delete?id=${id}`);
 }
+
+export async function getRequest(sender_id, covoiturage_id) {
+  return await getData(`/covoiturageRequest/request?sender_id=${sender_id}&covoiturage_id=${covoiturage_id}`);
+}

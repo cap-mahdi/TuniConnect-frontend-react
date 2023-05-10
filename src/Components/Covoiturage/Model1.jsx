@@ -32,7 +32,6 @@ const Model1 = ({ member_id, isVisible, onClose }) => {
       driver_id: member_id,
       description: '',
     };
-    console.log(data);
     postCovoiturage(data);
     handleReset();
     onClose();
@@ -71,13 +70,15 @@ const Model1 = ({ member_id, isVisible, onClose }) => {
         </button>
         {step === 1 && (
           <div className="flex flex-col items-center w-full rounded-lg bg-[#E5ECF0]">
-            <div className="my-4 font-bold text-4xl text-[#1F2937]">From Where Are you Going?</div>
+            <div className="my-4 font-bold text-4xl text-[#1F2937] text-center">From Where Are you Going?</div>
             <form onSubmit={handleNext} className="my-7 w-full flex flex-col items-center justify-between">
               <input
                 type="text"
                 placeholder="Enter you starting point"
                 value={departure}
-                onChange={(e) => {setDeparture(e.target.value)}}
+                onChange={(e) => {
+                  setDeparture(e.target.value);
+                }}
                 required
                 className="border border-gray-400 p-2 rounded-md w-2/3"
               />
@@ -102,7 +103,7 @@ const Model1 = ({ member_id, isVisible, onClose }) => {
         )}
         {step === 2 && (
           <div className="flex flex-col items-center w-full rounded-lg bg-[#E5ECF0]">
-            <div className="my-4 font-bold text-4xl text-[#1F2937]">And Where Are you Going?</div>
+            <div className="my-4 font-bold text-4xl text-[#1F2937] text-center">And Where Are you Going?</div>
             <form onSubmit={handleNext} className="my-7 w-full flex flex-col items-center justify-between">
               <input
                 type="text"
@@ -133,7 +134,7 @@ const Model1 = ({ member_id, isVisible, onClose }) => {
         )}
         {step === 3 && (
           <div className="flex flex-col items-center w-full rounded-lg bg-[#E5ECF0]">
-            <div className="my-4 font-bold text-4xl text-[#1F2937]">Select The Departure Date</div>
+            <div className="my-4 font-bold text-4xl text-[#1F2937] text-center">Select The Departure Date</div>
             <form onSubmit={handleNext} className="my-7 w-full flex flex-col items-center justify-between">
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DateTimePicker label="Date&Time picker" value={date} onChange={(date) => setDate(date)} />
@@ -159,7 +160,7 @@ const Model1 = ({ member_id, isVisible, onClose }) => {
         )}
         {step === 4 && (
           <div className="flex flex-col items-center w-full rounded-lg bg-[#E5ECF0]">
-            <div className="my-4 font-bold text-4xl text-[#1F2937]">How many people are allowed on?</div>
+            <div className="my-4 font-bold text-4xl text-[#1F2937] text-center">How many people are allowed on?</div>
             <form onSubmit={handleNext} className="my-7 w-full flex flex-col items-center justify-between">
               <input
                 type="number"
@@ -192,7 +193,7 @@ const Model1 = ({ member_id, isVisible, onClose }) => {
         )}
         {step === 5 && (
           <div className="flex flex-col items-center w-full rounded-lg bg-[#E5ECF0]">
-            <div className="my-4 font-bold text-4xl text-[#1F2937]">Enter a Reasonable Price</div>
+            <div className="my-4 font-bold text-4xl text-[#1F2937] text-center">Enter a Reasonable Price</div>
             <form onSubmit={handleSubmit} className="my-7 w-full flex flex-col items-center justify-between">
               <input
                 type="number"

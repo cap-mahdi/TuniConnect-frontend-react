@@ -11,7 +11,6 @@ const RequestCard = ({ request }) => {
     });
   };
 
-
   const handleDecline = () => {
     declineCov(request.sender.id, request.covoiturage.id).then((response) => {
       setRequestStatus(response.data.status);
@@ -22,20 +21,20 @@ const RequestCard = ({ request }) => {
 
   if (requestStatus === 'pending') {
     buttonsOrStatus = (
-      <div className="flex flex-col lg:flex-row lg:justify-end lg:items-center w-full lg:space-x-2">
+      <>
         <button
-          className="bg-[#F4F5FA] py-3 rounded-full border border-[#F0F0F6] shadow-xl lg:w-1/3 w-56"
+          className="bg-[#F4F5FA] py-3 rounded-full border border-[#F0F0F6] shadow-xl lg:w-1/4 w-56"
           onClick={handleAccept}
         >
           Accept Request
         </button>
         <button
-          className="bg-[#F4F5FA] py-3 rounded-full border border-[#F0F0F6] shadow-xl lg:w-1/3 w-56 text-center"
+          className="bg-[#F4F5FA] py-3 rounded-full border border-[#F0F0F6] shadow-xl lg:w-1/4 w-56 text-center"
           onClick={handleDecline}
         >
           Decline Request
         </button>
-      </div>
+      </>
     );
   } else {
     buttonsOrStatus = <p className="text-lg font-light">{`Request ${requestStatus}`}</p>;
@@ -43,16 +42,18 @@ const RequestCard = ({ request }) => {
 
   return (
     <div className="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 mb-10 mx-auto w-9/12">
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-row ">
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-row ">
           <Avatar size={4} image={request.sender.profilePicture}></Avatar>
           <div className="flex flex-col">
             <span className="font-light text-lg ">{`${request.sender.firstName} ${request.sender.lastName}`}</span>
             <span className="font-light text-lg self-center">{`${request.sender.phone}`}</span>
           </div>
-          </div>
-          <div className='self-center'>{buttonsOrStatus}</div>
         </div>
+        <div className="flex flex-col lg:flex-row lg:justify-end lg:items-center w-full lg:space-x-2">
+          {buttonsOrStatus}
+        </div>
+      </div>
     </div>
   );
 };

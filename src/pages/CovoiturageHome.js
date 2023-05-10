@@ -26,18 +26,20 @@ function CovoiturageHome({ member }) {
           to='myTrips'
           className="self-end"
         >
-          <span class="mb-2 font-semibold text-lg ml-2 text-[#1F2937]">My Offered trips</span>
+          <span class="mb-2 font-semibold text-lg ml-2 text-[#1F2937]">Your Carpool Offers</span>
         </Link>
         <button className="self-end" onClick={() => setShowModal2(true)}>
           <div className='flex flex-row'>
             <Avatar image={'button.png'} size={1.5}></Avatar>
-            <span class="font-semibold text-lg ml-2 text-[#1F2937]">Add a new trip</span>
+            <span class="font-semibold text-lg ml-2 text-[#1F2937]">Add a new carpool</span>
           </div>
         </button>
       </div>
-      {data?.map((trip) => (
+      {data.length === 0 ? (
+        <p className='text-center'>Oops, Looks like there aren't any carpools !</p>
+      ) : (data.map((trip) => (
         <TripCard trip={trip} allTrips={true} id={member.id}></TripCard>
-      ))}
+      )))}
       <Model1 isVisible={showModal2} onClose={() => setShowModal2(false)} member_id={member.id}></Model1>
     </div>
   );

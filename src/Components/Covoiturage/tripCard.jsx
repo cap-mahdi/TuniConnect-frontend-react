@@ -1,58 +1,96 @@
 import { useEffect, useState } from 'react';
 import Avatar from '../Post/Avatar';
 import Addon from './addon';
-import { deleteCovoiturage, sendRequest } from '../../API/Covoiturage/CovoiturageController';
+import { deleteCovoiturage, getRequest, sendRequest } from '../../API/Covoiturage/CovoiturageController';
 import { Link } from 'react-router-dom';
 import { getCovoituragesByID } from '../../API/Covoiturage/CovoiturageController';
 import RequestCard from './requestCard';
 
 function TripCard({ id, trip, allTrips }) {
+  const [requestID, setRequestID] = useState(null);
   const [requestStatus, setRequestStatus] = useState(null);
   const departureTime = new Date(trip.departureTime);
   const [showCarpoolRequests, setShowCarpoolRequests] = useState(false);
   const [CarpoolRequests, setCarpoolRequests] = useState([]);
-  const [imgSrc, setImgSrc] = useState("/down-arrow.png");
+  const [imgSrc, setImgSrc] = useState('/down-arrow.png');
+  const [isDeleted, setIsDeleted] = useState(false);
+  const [isExpired, setIsExpired] = useState(false);
+  
+  useEffect(() => {
+    getRequest(id, trip.id).then((response) => {
+      if (response.data.length !== 0) {
+        setRequestID(response.data[0].id);
+        const savedStatus = localStorage.getItem(`requestStatus-${response.data[0].id}`);
+        if (savedStatus) {
+          setRequestStatus(savedStatus);
+        }
+      }
+    });
+  }, []);
+ 
+
+  useEffect(()=> {
+    const currentTimestamp = new Date().getTime();
+    const departureTimestamp = new Date(trip.departureTime).getTime();
+    if (currentTimestamp > departureTimestamp) {
+      setIsExpired(true);
+    }
+  }, [[trip.departureTime]])
+
+  useEffect(() => {
+    if (trip.isDeleted) {
+      setIsDeleted(true);
+    }
+  }, [trip]);
 
   useEffect(() => {
     if (showCarpoolRequests) {
       getCovoituragesByID(trip.id).then((response) => setCarpoolRequests(response.data));
     }
   }, [showCarpoolRequests]);
-
-  console.log(CarpoolRequests);
+  
 
   const handleDelete = () => {
-    deleteCovoiturage(trip.id).then((response) => console.log(response))
+    console.log(trip.id);
+    deleteCovoiturage(trip.id)
+      .then((response) => {
+        console.log(response);
+        setIsDeleted(true);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  if (isDeleted) {
+    return null; 
   }
 
-  useEffect(() => {
-    const savedStatus = localStorage.getItem(`requestStatus-${trip.id}`);
-    if (savedStatus) {
-      setRequestStatus(savedStatus);
-    }
-  }, []);
+  if (isExpired) {
+    return null; 
+  }
 
   const handleRequest = () => {
-    const savedStatus = localStorage.getItem(`requestStatus-${trip.id}`);
+    const savedStatus = localStorage.getItem(`requestStatus-${requestID}`);
     if (savedStatus) {
       setRequestStatus(savedStatus);
     } else {
       setRequestStatus('sending');
       sendRequest(id, trip.id)
-        .then(() => {
+        .then((response) => {
           setRequestStatus('sent');
-          localStorage.setItem(`requestStatus-${trip.id}`, 'sent');
+          setRequestID(response.data.id);
+          localStorage.setItem(`requestStatus-${response.data.id}`, 'sent');
         })
         .catch(() => {
           setRequestStatus('error');
-          localStorage.setItem(`requestStatus-${trip.id}`, 'error');
         });
     }
   };
 
   const toggleCarpoolRequests = () => {
     setShowCarpoolRequests(!showCarpoolRequests);
-    setImgSrc(showCarpoolRequests ? "/down-arrow.png" : "/scroll-up.png");
+    setImgSrc(showCarpoolRequests ? '/down-arrow.png' : '/scroll-up.png');
   };
 
   const options = {
@@ -76,7 +114,13 @@ function TripCard({ id, trip, allTrips }) {
         <div class="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 ">
           <div className="flex flex-row justify-between">
             <div class="mb-2 font-semibold text-lg">{formattedDepartureTime}</div>
-            <button style={allTrips ? { display: 'none' } : { display: 'flex' }} className='me-5' onClick={handleDelete}><img src='/delete.png' className='w-6 h-6'></img></button>
+            <button
+              style={allTrips ? { display: 'none' } : { display: 'flex' }}
+              className="me-5"
+              onClick={handleDelete}
+            >
+              <img src="/delete.png" className="w-6 h-6"></img>
+            </button>
           </div>
           <div className="flex flex-row justify-between mb-2">
             <div className="flex flex-row justify-start">
@@ -98,7 +142,7 @@ function TripCard({ id, trip, allTrips }) {
             </div>
           </div>
           <div
-            className="flex flex-col lg:flex-row lg:justify-between lg:items-end items-end"
+            className="flex flex-col lg:flex-row lg:justify-between lg:items-end items-center space-y-2"
             style={!allTrips ? { display: 'none' } : { display: 'flex' }}
           >
             <div className="flex flex-row">
@@ -107,7 +151,7 @@ function TripCard({ id, trip, allTrips }) {
             </div>
             <div className="flex flex-col lg:flex-row lg:justify-end lg:items-center w-3/4 lg:space-x-2">
               <button
-                class="bg-[#F4F5FA] py-3 rounded-full border border-[#F0F0F6] shadow-xl lg:w-1/3 w-56"
+                class="bg-[#F4F5FA] py-3 rounded-full border border-[#F0F0F6] shadow-xl lg:w-2/5 w-56"
                 disabled={requestStatus === 'sending' || requestStatus === 'sent'}
                 onClick={handleRequest}
               >
@@ -133,7 +177,7 @@ function TripCard({ id, trip, allTrips }) {
           </div>
         </div>
       </div>
-      <div style={!showCarpoolRequests ? { display: 'none' } : { display: 'flex' }}>
+      <div style={!showCarpoolRequests ? { display: 'none' } : { display: 'flex' }} className='flex flex-col'>
         {CarpoolRequests?.map((request) => (
           <RequestCard request={request}></RequestCard>
         ))}
