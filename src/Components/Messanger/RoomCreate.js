@@ -2,9 +2,11 @@ import { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import MemberSelector from './MemberSelector';
+import { createRoom } from '../../API/Chat/chatController';
 
-export default function RoomCreate({ open, setOpen }) {
+export default function RoomCreate({ open, setOpen, friends, member, setRooms }) {
   //   const cancelButtonRef = useRef(null);
+  const [selected, setSelected] = useState(member);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -43,7 +45,7 @@ export default function RoomCreate({ open, setOpen }) {
                         Create a Room now{' '}
                       </Dialog.Title>
                       <div className="mt-2 absolute">
-                        <MemberSelector />
+                        <MemberSelector selected={selected} setSelected={setSelected} friends={friends} />
                       </div>
                     </div>
                   </div>
@@ -52,7 +54,15 @@ export default function RoomCreate({ open, setOpen }) {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm  sm:ml-3 sm:w-auto  bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      createRoom({
+                        member,
+                        friend: selected,
+                        setRooms,
+                      });
+
+                      setOpen(false);
+                    }}
                   >
                     Create
                   </button>

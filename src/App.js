@@ -15,8 +15,8 @@ import Messanger from './pages/MessangerSection';
 import SignIn from './pages/SignIn';
 import SignUpForm from './Components/SignUp/SignUpForm';
 import SignUp from './pages/SignUpPage';
-import ProtectedPage from './api/ProtectedPage';
-import CovoiturageHome from "./pages/CovoiturageHome"
+import ProtectedPage from './API/ProtectedPage';
+import CovoiturageHome from './pages/CovoiturageHome';
 const router = createBrowserRouter([
   {
     path: '/',

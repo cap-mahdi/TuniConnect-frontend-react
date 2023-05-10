@@ -4,19 +4,16 @@ import MessagesList from './MessagesList';
 import React, { useState, useEffect } from 'react';
 import WebSocket from 'isomorphic-ws';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchDataWithArgs } from '../../../api/utilities';
-import { getRoomMessages } from '../../../api/Chat/chatController';
-export default function RightSection() {
-  const [messages, setMessages] = useState([]);
-  const roomId = 1;
-  const ID = Math.floor(Math.random() * 2) + 1;
-  console.log('ID :  ----> ', ID);
+import { fetchDataWithArgs } from '../../../API/utilities';
+import { getRoomMessages } from '../../../API/Chat/chatController';
+export default function RightSection({ member, activeRoom, messages, setMessages }) {
+  const [id, setId] = useState(member.id);
+  const roomId = activeRoom.id;
 
-  const [id, setId] = useState(ID);
+  // useEffect(() => {
+  //   fetchDataWithArgs(getRoomMessages, setMessages, { roomId });
+  // }, []);
 
-  useEffect(() => {
-    fetchDataWithArgs(getRoomMessages, setMessages, { roomId });
-  }, []);
   useEffect(() => {
     console.log(messages);
   }, [messages]);
@@ -34,7 +31,11 @@ export default function RightSection() {
       console.log(event);
       const message = JSON.parse(event.data);
 
-      setMessages((messages) => [...messages, message]);
+      setMessages((messages) => {
+        if (!messages) return [message];
+
+        return [...messages, message];
+      });
     };
 
     return () => {
@@ -57,7 +58,7 @@ export default function RightSection() {
 
   return (
     <>
-      <div className={`${style['container']}`}>
+      <div className={`${style['container']} sidebar-container`}>
         <div className={`${style['messages-container']}`}>
           <MessagesList id={id} messages={messages} />
         </div>

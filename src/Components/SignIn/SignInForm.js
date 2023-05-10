@@ -3,6 +3,12 @@ import styles from "./SignInStyle.module.css"
 import AuthController from "../../api/Accounts/AuthController";
 import { Link, useNavigate } from "react-router-dom";
 import { set } from "date-fns";
+import React, { useState } from 'react';
+import styles from './SignInStyle.module.css';
+import AuthController from '../../API/Accounts/AuthController';
+import logo from '../../assets/tuniConnect.png';
+
+import { Link, useNavigate } from 'react-router-dom';
 function SignInForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -32,20 +38,16 @@ function SignInForm() {
     if(res.data.token){
       AuthController.setToken(res.data.token);
       navigate('/');
-    }else{
+    } else {
       navigate('/signin');
     }
-  }
+  };
 
   return (
-    <div className={styles["signInForm"]}>
+    <div className={styles['signInForm']}>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
+          <img className="mx-auto h-28 w-auto" src={logo} alt="TuniConnect" />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
@@ -76,7 +78,6 @@ function SignInForm() {
                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                   Password
                 </label>
-
               </div>
               <div className="mt-2">
                 <input
@@ -98,7 +99,6 @@ function SignInForm() {
 
             <div>
               <button
-              
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
@@ -110,17 +110,13 @@ function SignInForm() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{' '}
             <Link to="/signup">
-            <h1 className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Register now
-            </h1>
+              <h1 className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register now</h1>
             </Link>
-            
           </p>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
 
 export default SignInForm;

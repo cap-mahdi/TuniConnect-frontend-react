@@ -31,7 +31,7 @@ const SideBarLeft = (props) => {
 
   return (
     <div className={`${toggle ? `${styles['w-t']}` : `${styles['w-o']}`} sidebar-container  ${styles.container}`}>
-      <UserProfile toggle={toggle} width={width} />
+      <UserProfile toggle={toggle} width={width} member={props.member} />
       <div className={` ${styles.scroll}`}>
         <SidebarData toggle={toggle} data={props.data} width={width} />
       </div>
