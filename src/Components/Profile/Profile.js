@@ -5,8 +5,8 @@ import ProfileImage from './ProfileImage';
 import { Link } from 'react-router-dom';
 import FriendsList from './FriendsList';
 import avatar from '../../assets/avatar.svg';
-import { fetchDataWithArgs } from '../../API/utilities';
-import { getFriends } from '../../API/Accounts/accountsController';
+import { fetchDataWithArgs } from '../../api/utilities';
+import { getFriends } from '../../api/Accounts/accountsController';
 
 //profile page with tailwind  cover image profile image and profile info and list of posts and friends
 

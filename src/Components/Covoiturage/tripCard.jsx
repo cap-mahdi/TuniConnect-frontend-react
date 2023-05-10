@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Avatar from '../Post/Avatar';
 import Addon from './addon';
-import { sendRequest } from '../../API/Covoiturage/CovoiturageController';
+import { sendRequest } from '../../api/Covoiturage/CovoiturageController';
 import { Link } from 'react-router-dom';
 
 function TripCard({ id, trip, allTrips }) {

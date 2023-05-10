@@ -2,8 +2,8 @@ import TripCard from '../Components/Covoiturage/tripCard';
 import { Link } from 'react-router-dom';
 import Avatar from '../Components/Post/Avatar';
 import { useState, useEffect } from 'react';
-import { getCovoiturages } from '../API/Covoiturage/CovoiturageController';
-import { fetchData } from '../API/utilities';
+import { getCovoiturages } from '../api/Covoiturage/CovoiturageController';
+import { fetchData } from '../api/utilities';
 import Model1 from '../Components/Covoiturage/Model1';
 
 function CovoiturageHome({ member_id }) {

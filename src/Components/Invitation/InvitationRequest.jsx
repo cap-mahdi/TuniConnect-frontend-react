@@ -15,7 +15,7 @@ import {
 import { Menu, Transition } from '@headlessui/react';
 
 import styles from './InvitationRequest.module.css';
-import { postData } from '../../API/utilities';
+import { postData } from '../../api/utilities';
 import { editFriendRequests } from './FriendRequestController';
 
 function classNames(...classes) {

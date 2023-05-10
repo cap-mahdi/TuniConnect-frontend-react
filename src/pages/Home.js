@@ -1,10 +1,7 @@
-import { Link } from 'react-router-dom';
-// import { XMarkIcon } from '@heroicons/react/20/solid';
-import Post from '../Components/Post/Post';
-import { getMember } from '../API/Accounts/accountsController';
-import { getPost, getPostPaginated, getPostTimeline } from '../API/Posts/PostController';
+
+import {  getPostPaginated, getPostTimeline } from '../api/posts/PostController';
 import react,{ useEffect, useState } from 'react';
-import { fetchData } from '../API/utilities';
+import { fetchData, fetchDataWithArgs } from '../api/utilities';
 import Spin from '../Components/Spin';
 import PostInput from '../Components/PostInput/PostInput';
 import ListPost from '../Components/ListPost';

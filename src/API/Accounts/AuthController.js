@@ -36,7 +36,8 @@ static async  signUp(inter,coverImageFile,imageFile){
 
     static async  SingIn(credentails){
 
-        return await axios.post(baseUrl + '/api/login',credentails)
+        return await postData('/api/login',credentails)
+        
             
 
     }

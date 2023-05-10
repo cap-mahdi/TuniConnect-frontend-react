@@ -7,11 +7,9 @@ import styles from "./Post.module.css"
 import PostSharer from "./PostSharer";
 import PostInput from "../PostInput/PostInput";
 import Input from "./Input";
-import { addComment, deletePost, getComment, getComments, getPostOwner, likeDislikePost, sendNotification, sharePost, updatePost  , addNotification} from "../../API/Posts/PostController";
-import { fetchData, timeAgo } from "../../API/utilities";
-import PostSharedBadge from "./Badge";
-import {v4} from "uuid"
-import DeleteButton from "./DeleteButton";
+import { addComment, deletePost, getComment, getComments, getPostOwner, likeDislikePost, sendNotification, sharePost, updatePost  , addNotification} from "../../api/posts/PostController";
+import { fetchData, timeAgo } from "../../api/utilities";
+
 import Badge from "./Badge";
 import UpdatePost from "./UpdatePost";
 import Spin from "../Spin";

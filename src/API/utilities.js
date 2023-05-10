@@ -42,6 +42,7 @@ export async function postData(uri, data) {
     return await axios.post(baseUrl + uri, data);
   } catch (error) {
     console.log("error", error);
+    return {msg:error.response.data,status:404};
   }
 }
 

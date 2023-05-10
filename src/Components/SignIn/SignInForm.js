@@ -1,11 +1,13 @@
 import React, {useState} from "react";
 import styles from "./SignInStyle.module.css"
-import AuthController from "../../API/Accounts/AuthController";
+import AuthController from "../../api/Accounts/AuthController";
 import { Link, useNavigate } from "react-router-dom";
+import { set } from "date-fns";
 function SignInForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -17,6 +19,16 @@ function SignInForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await AuthController.SingIn({ email, password });
+    console.log(res);
+    
+    if(res?.status==404){
+      setError(true);
+      setPassword("");
+      setTimeout(() => {
+        setError(false);
+      }
+      , 8000);
+    }
     if(res.data.token){
       AuthController.setToken(res.data.token);
       navigate('/');
@@ -78,6 +90,10 @@ function SignInForm() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+              {/* Wrong credentials msg */}
+              { error && <div className="text-sm text-red-500">
+                <p>Wrong credentials</p>
+              </div> }
             </div>
 
             <div>

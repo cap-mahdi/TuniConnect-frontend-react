@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";  
 import { PhotoIcon } from '@heroicons/react/24/solid'
-import { uploadImage } from "../../API/Accounts/accountsController";
 import { useState } from "react";
-import { fetchData, postData } from "../../API/utilities";
 
 function CoverImage(props) {
 
