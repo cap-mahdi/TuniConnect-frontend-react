@@ -1,4 +1,4 @@
-import { deleteData, getData, postData, putData } from '../../api/utilities';
+import { deleteData, getData, postData, putData } from '../../API/utilities';
 
 //send a friend request
 export async function sendFriendRequests(sender  ,receiver) {

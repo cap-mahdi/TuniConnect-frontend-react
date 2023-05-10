@@ -5,7 +5,7 @@ import styles from './SignUp.module.css';
 import SelectCountry from "./SelectCuntry";
 import ImagesHandler from "./ImagesHandler";
 import { useState } from "react";
-import AuthController from "../../api/Accounts/AuthController";
+import AuthController from "../../API/Accounts/AuthController";
 import {Routes, Route, useNavigate, Await} from 'react-router-dom';
 import { set } from "date-fns";
 

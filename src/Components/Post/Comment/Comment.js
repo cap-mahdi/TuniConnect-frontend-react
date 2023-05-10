@@ -3,7 +3,7 @@ import Avatar from "../Avatar";
 import styles from "./Comment.module.css"
 import Poster from "../Poster/Poster";
 import { Link } from "react-router-dom";
-import { timeAgo } from "../../../api/utilities";
+import { timeAgo } from "../../../API/utilities";
 function Comment(props){
     const comment = props.comment;
     const maxLength = 50;

@@ -5,8 +5,8 @@ import ProfileImage from './ProfileImage';
 import { Link } from 'react-router-dom';
 import FriendsList from './FriendsList';
 import avatar from '../../assets/avatar.svg';
-import { fetchDataWithArgs, getData, postData } from '../../api/utilities';
-import { getFriends } from '../../api/Accounts/accountsController';
+import { fetchDataWithArgs, getData, postData } from '../../API/utilities';
+import { getFriends } from '../../API/Accounts/accountsController';
 import styles from './Profile.module.css'
 
 

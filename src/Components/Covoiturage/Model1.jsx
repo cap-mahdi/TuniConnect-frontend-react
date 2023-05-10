@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { postCovoiturage } from '../../api/Covoiturage/CovoiturageController';
+import { postCovoiturage } from '../../API/Covoiturage/CovoiturageController';
 
 const Model1 = ({ member_id, isVisible, onClose }) => {
   const [step, setStep] = useState(1);
