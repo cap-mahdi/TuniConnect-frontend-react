@@ -12,6 +12,10 @@ function Avatar(props){
             (<div className="relative inline-block">
                 <img className="inline-block  rounded-full ring-2 ring-white " style={size}  src={`http://localhost:8000/images/${props.image}`} />
             </div>) :
+            props.imageUrl ?
+            (<div className="relative inline-block">
+                <img className="inline-block  rounded-full ring-2 ring-white " style={size}  src={props.imageUrl} />
+            </div>) :
              (
                 <span class="inline-block rounded-full overflow-hidden" style={size} >
                     <svg class="h-full w-full text-gray-300" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,7 +1,7 @@
 import React from "react";
 import SignInForm from '../Components/SignIn/SignInForm'
 import  styles from  '../Components/SignIn/SignInStyle.module.css'
-import AuthController from "../API/Accounts/AuthController";
+import AuthController from "../api/Accounts/AuthController";
 function SignIn() {
     AuthController.removeToken()  ;
     return (

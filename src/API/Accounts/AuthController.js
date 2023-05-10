@@ -30,9 +30,12 @@ class AuthController {
     return await postData('/api/register', data);
   }
 
-  static async SingIn(credentails) {
-    return await axios.post(baseUrl + '/api/login', credentails);
-  }
+    static async  SingIn(credentails){
+
+        return await postData('/api/login',credentails)
+    }
+        
+            
 
   static async getMemberByToken() {
     const response = await getData('/get-current-user');

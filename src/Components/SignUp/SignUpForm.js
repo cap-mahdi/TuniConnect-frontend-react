@@ -5,9 +5,9 @@ import styles from './SignUp.module.css';
 import SelectCountry from "./SelectCuntry";
 import ImagesHandler from "./ImagesHandler";
 import { useState } from "react";
-import { getMember, uploadImage } from "../../API/Accounts/accountsController";
-import  AuthController from "../../API/Accounts/AuthController";
+import AuthController from "../../api/Accounts/AuthController";
 import {Routes, Route, useNavigate, Await} from 'react-router-dom';
+import { set } from "date-fns";
 
 function SignUpForm() {
 
@@ -20,7 +20,7 @@ const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [gender, setGender] = useState("male");
 const [country, setCountry] = useState("Tunisia")
-const [birthDate, setBirthDate] = useState("01-01-2000");
+const [birthDate, setBirthDate] = useState("");
 const [imageFile, setImageFile] = useState(null);
 const [coverImageFile, setCoverImageFile] = useState(null);
 const [phoneNumber, setPhoneNumber] = useState("");
@@ -28,6 +28,8 @@ const [street, setStreet] = useState("");
 const [city, setCity] = useState("");   
 const [zipCode, setZipCode] = useState("");
 const [state, setState] = useState("");
+
+const [error, setError] = useState("");
 
 
 
@@ -53,6 +55,18 @@ const handelSubmit = async (e) => {
 
 
     const res = await AuthController.signUp(data,coverImageFile,imageFile);
+    
+    if(res?.status==404){
+      setError(res.msg);
+      setPassword("");
+      if(res.msg=="Email already exists"){
+        setEmail("");
+      }
+      setTimeout(() => {
+        setError("");
+      }
+      , 8000);
+    }
     if(res.data.token){
       AuthController.setToken(res.data.token);
       navigate('/');
@@ -91,7 +105,9 @@ const handelSubmit = async (e) => {
             <InputField value={state} onChange={setState} width="sm:col-span-2" label="State / Province" type="text" name="State" />
             <InputField value={zipCode} onChange={setZipCode} width="sm:col-span-2" label="ZIP / Postal" type="text" name="ZIP" />
 
-
+            {
+              error!='' && <h6 className="w-max text-red-500">{error}</h6>
+            }
           </div>
         </div>
 

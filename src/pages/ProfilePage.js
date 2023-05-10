@@ -9,7 +9,7 @@ import styles from './Main.module.css';
 import Profile from '../Components/Profile/Profile';
 import { useParams } from 'react-router-dom';
 import { getMember } from '../API/Accounts/accountsController';
-import { fetchDataWithArgs } from '../API/utilities';
+import { fetchDataWithArgs } from '../api/utilities';
 import { useEffect, useState } from 'react';
 const ProfilePage = (props) => {
   const { id } = useParams();

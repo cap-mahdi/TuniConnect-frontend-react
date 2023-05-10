@@ -4,8 +4,8 @@ import MessagesList from './MessagesList';
 import React, { useState, useEffect } from 'react';
 import WebSocket from 'isomorphic-ws';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchDataWithArgs } from '../../../API/utilities';
-import { getRoomMessages } from '../../../API/Chat/chatController';
+import { fetchDataWithArgs } from '../../../api/utilities';
+import { getRoomMessages } from '../../../api/Chat/chatController';
 export default function RightSection() {
   const [messages, setMessages] = useState([]);
   const roomId = 1;

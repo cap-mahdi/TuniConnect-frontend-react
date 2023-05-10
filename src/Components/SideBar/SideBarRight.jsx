@@ -7,7 +7,7 @@ import styles from './SideBar.module.css';
 import st from './SideBarRight.module.css';
 import InvitationRequest from '../Invitation/InvitationRequest';
 import { getFriendRequests } from '../Invitation/FriendRequestController';
-import { fetchData } from '../../API/utilities';
+import { fetchData } from '../../api/utilities';
 import Spin from '../../Components/Spin'
 
 function ListOfInvits({friendRequests , setFriendRequests})
