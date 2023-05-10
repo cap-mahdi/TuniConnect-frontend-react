@@ -13,6 +13,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/20/solid';
 import { Menu, Transition } from '@headlessui/react';
+import { useEffect } from 'react';
 
 import styles from './InvitationRequest.module.css';
 import { postData } from '../../api/utilities';
@@ -34,9 +35,11 @@ export default function InvitationRequest({ friendRequest, onChangeHandler  , id
       status: newStatus, 
       friendRequestId: friendRequestId 
     }
-    await editFriendRequests(postData)
+    editFriendRequests(postData)
+    setTimeout(() => {
+      onChangeHandler();
+    }, 20000);
   }
-
 
   async function handledDeclineButton() {
     const newStatus = "Refused"
@@ -46,8 +49,13 @@ export default function InvitationRequest({ friendRequest, onChangeHandler  , id
       status: newStatus,
       friendRequestId: friendRequestId
     }
-    await editFriendRequests(postData)
+    editFriendRequests(postData)
+    setTimeout(() => {
+      onChangeHandler();
+    }, 200000);
   }
+
+
   return (
     <>
 

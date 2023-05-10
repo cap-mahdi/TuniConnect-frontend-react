@@ -2,7 +2,6 @@
   position: relative;
   height: 100%;
   max-height: 100%;
-
   padding: 0;
   padding-top: 1rem;
   display: flex;
@@ -39,4 +38,9 @@
   /* align-items: center; */
   /* background-color: rgba(89, 0, 255, 0.582); */
   /* justify-content: center; */
+}
+
+
+.friend-requests {
+  text-align: center;
 }
