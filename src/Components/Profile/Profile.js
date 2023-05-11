@@ -5,21 +5,43 @@ import ProfileImage from './ProfileImage';
 import { Link } from 'react-router-dom';
 import FriendsList from './FriendsList';
 import avatar from '../../assets/avatar.svg';
-import { fetchDataWithArgs } from '../../API/utilities';
-import { getFriends } from '../../API/Accounts/accountsController';
+import { fetchData, fetchDataWithArgs } from '../../API/utilities';
+import { getFriends, getMemberComments, getMemberLikes, getMemberPhotos, getMemberShares } from '../../API/Accounts/accountsController';
+import Spin from '../Spin';
+import { set } from 'date-fns';
+import { getUserPostsPaginated } from '../../API/Posts/PostController';
 
 //profile page with tailwind  cover image profile image and profile info and list of posts and friends
 
-const Profile = ({ data }) => {
-  const [friends, setFriends] = useState([]);
+const Profile = ({ data ,setData,setPosts,setID}) => {
+  console.log("data thta comes", data);
+  const [friends, setFriends] = useState(null);
+  const [nbrLikes, setNbrLikes] = useState(null);
+  const [nbrPhotos, setNbrPhotos] = useState(null);
+  const [nbrComments, setNbrComments] = useState(null);
+  const [nbShares, setNbShares] = useState(null);
 
   useEffect(() => {
-    fetchDataWithArgs(getFriends, setFriends, 2);
-  }, []);
-  useEffect(() => {
-    console.log(friends);
-  }, [friends]);
+    if(data)
+    {fetchDataWithArgs(getFriends, setFriends, data.id)
+    fetchDataWithArgs(getMemberLikes, setNbrLikes, data.id);
+    fetchDataWithArgs(getMemberPhotos, setNbrPhotos, data.id);
+    fetchDataWithArgs(getMemberComments, setNbrComments, data.id);
+    fetchDataWithArgs(getMemberShares, setNbShares, data.id);}
 
+  }, [data]);
+  useEffect(() => {
+    console.log("shares", nbShares);
+  }, [nbShares]);
+  function resetToNull(){
+    setFriends(null);
+    setData(null);
+    setNbrLikes(null);
+    setNbrPhotos(null);
+    setNbrComments(null);
+    setNbShares(null);
+    setPosts(null);
+  }
   return (
     <main className="profile-page">
       <CoverImage imageUrl={data?.coverPicture} />
@@ -32,7 +54,7 @@ const Profile = ({ data }) => {
                   imageUrl={data?.profilePicture ? `http://localhost:8000/images/${data.profilePicture}` : avatar}
                 />
                 <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                  <ActivityInfo nbrFriends={22} nbrPhotos={10} nbrComments={89} />
+                  <ActivityInfo nbrLikes={nbrLikes} nbrPhotos={nbrPhotos} nbrComments={nbrComments} nbShares={nbShares}/>
                 </div>
               </div>
               <div className="text-center mt-12">
@@ -48,7 +70,7 @@ const Profile = ({ data }) => {
           </div>
         </div>
       </section>
-      <FriendsList friends={friends} />
+      {friends ? <FriendsList resetToNull={resetToNull} friends={friends} setData={setData} setID={setID} setPosts={setPosts}/>: <Spin />}
     </main>
   );
 };

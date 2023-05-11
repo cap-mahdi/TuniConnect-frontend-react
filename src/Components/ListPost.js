@@ -1,13 +1,13 @@
 import React from "react";
 import Post from "./Post/Post";
 import Spin from "./Spin";
+import { v4 } from "uuid";
 
 export default function ListPost(props) {
-    if(props.posts==null)
-        return <Spin />;
+    console.log("all my posts are now ", props.posts);
     return (<>
         {props.posts.map((post) => (
-        <Post post={post} userId={props.userId} regetPosts={props.regetPosts} />
+        <Post memberFullName={props.memberFullName} key={v4()} post={post} currentUserId={props.currentUserId} updatePost={props.updatePost} deletePost={props.deletePost} />
       ))
             
         }

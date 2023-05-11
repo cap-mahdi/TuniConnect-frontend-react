@@ -23,7 +23,7 @@ function Comment(props){
     }
     return (
         <div className={"bg-gray-800/[.1] border border-gray-200 text-sm text-gray-600 rounded-md p-4  "+ styles.comment} role="alert">
-            <Poster size={30} poster={comment.commenter} time={timeAgo(new Date(comment.createdAt))}/>
+            <Poster size={30}  poster={comment.commenter} time={timeAgo(new Date(comment.createdAt))}/>
             <p style={{textAlign: "center"},{marginLeft: "20px"}}>
                 {body}
                 <br />

@@ -7,32 +7,22 @@ import styles from "./Post.module.css"
 import PostSharer from "./PostSharer";
 import PostInput from "../PostInput/PostInput";
 import Input from "./Input";
-import { addComment, deletePost, getComment, getComments, getPostOwner, likeDislikePost, sendNotification, sharePost, updatePost  , addNotification} from "../../API/Posts/PostController";
-import { fetchData, timeAgo } from "../../API/utilities";
+import { addComment, deletePost, getComment, getComments, getPostOwner, likeDislikePost, sendNotification, sharePost, updatePost  , addNotification, getPostLikes, getPost} from "../../API/Posts/PostController";
+import { fetchData, getData, timeAgo } from "../../API/utilities";
 import PostSharedBadge from "./Badge";
 import {v4} from "uuid"
 import DeleteButton from "./DeleteButton";
 import Badge from "./Badge";
 import UpdatePost from "./UpdatePost";
 import Spin from "../Spin";
+import { Link } from "react-router-dom";
 
 
 function Post(props){
     const post = props.post;
-    const userId = props.userId;
+    const currentUserId = props.currentUserId;
     
 
-    //envoi de notification
-    async function sendNotification(idPost, type,  userId ){
-        const ownerId = await getPostOwner(idPost)
-        const postNotificationData = {
-            ownerId: ownerId,
-            type: type,
-            postId: idPost,
-            relatedTo: userId
-        }
-        await addNotification(postNotificationData)
-    }
 
 
     /*************LIKE BUTTON*****************/ 
@@ -40,7 +30,7 @@ function Post(props){
     const liked =  ()=>{
         let likers = post.likers;
         for(let i=0;i<likers.length;i++){
-            if(likers[i].id == userId)
+            if(likers[i].id == currentUserId)
                 return true;
         }
         return false;
@@ -51,7 +41,8 @@ function Post(props){
     async function likeHandler(){
         setIsLiked((isLiked)=> !isLiked);
         setLikeNumbers((likeNumbers)=> isLiked? likeNumbers-1 : likeNumbers+1);
-        await likeDislikePost(post.id,userId);
+        await likeDislikePost(post.id,currentUserId);
+        await fetchData(()=>getPostLikes(post.id),setLikeNumbers)
         
     }
 
@@ -63,20 +54,33 @@ function Post(props){
 
 
     //when the button is clicked,we check if the comments are shown or not,if they are shown we hide them,if they are not shown we show them
-    function commentHandler(){
-        setCommentShown((commentShown)=> !commentShown);
+    async function commentHandler(){
+        if(!commentShown){
+            setComments(null);
+            setCommentShown(true);
+            console.log("getting comments");
+            await fetchData(()=>getComments(post.id),(comments)=>{
+                setComments(comments)
+            });
+            console.log("comments got");
+            
+        }else{
+            setCommentShown(false)
+        }
+        
+    
     }
 
     //when the user submits a comment,we add it to the comments array,we increment the number of comments and we show the comments if they are not shown
     async function onAddingComment(comment){
         setCommentNumbers((commentNumbers)=> commentNumbers+1)
+
         if(!commentShown)
             setCommentShown((commentShown)=> true);
-        const res = await addComment(post.id,userId,comment);
-        console.log(res.data.id);
-        await fetchData(()=>getComment(res.data.id),(newComment)=>{
-            console.log("newComment",newComment);
-            setComments((oldComments)=>[newComment,...oldComments])});
+
+        const res = await addComment(post.id,currentUserId,comment);
+        setComments((oldComments)=>[res.data,...oldComments])
+
         
         
         
@@ -93,23 +97,23 @@ function Post(props){
             return;
         setIsSharing("sharing");
         setIsShared((isShared)=> true);
-        await sharePost(post.id,userId);  
+        await sharePost(post.id,currentUserId);  
         setShareNumbers((shareNumbers)=> shareNumbers+1);
         setIsShared((isShared)=> false);
         setIsSharing("done");
         setTimeout(()=>{setIsSharing("start")},1000);
-        await sendNotification(post.id , "like" , userId)
+        // await sendNotification(post.id , "like" , currentUserId)
         
     }
     
     const [isDeleting,setIsDeleting] = useState("start");
     async function deleteHandler(){
         console.log("deleting post");
-        setIsSharing("deleting");
+        setIsDeleting("deleting");
         await deletePost(post.id);
-        setIsSharing("done");
-        setTimeout(()=>{setIsSharing("start")},1000);
-        props.regetPosts();
+        setIsDeleting("done");
+        setTimeout(()=>{props.deletePost(post.id);},1000);
+        
         
     }
 
@@ -122,20 +126,24 @@ function Post(props){
     }
     async function updateHandler(text){
         await updatePost(post.id,{"text":text});
-        await props.regetPosts();
+        const res = await getPost(post.id)
+        console.log('the updated post is ', res.data);
+         props.updatePost(res.data)
+         setIsEditing(false);
+        
 
     }
 
-
+    useEffect(()=> console.log("comments are ,",comments),[comments])
 
     return (
         <div>
         <div  className={"flex flex-col bg-white border shadow-sm rounded-xl  " + styles["layout"]}>
         {isSharing=="sharing" ? <Badge posted = {true} text={"sharing post..."}/> : isSharing=="done" ? <Badge posted = {false} text={"post shared!"}/> : null }
         {isDeleting=="deleting" ? <Badge posted = {true} text={"deleting post..."}/> : isDeleting=="done" ? <Badge posted = {false} text={"post deleted!"}/> : null }
-        {post.isShared && <PostSharer onClick={deleteHandler} isOwner={(userId==post.sharer.id)} sharer={post.sharer} time={timeAgo(new Date(post.date))} />}
+        {post.isShared && <PostSharer onClick={deleteHandler} isOwner={(currentUserId==post.sharer.id)} sharer={post.sharer} time={timeAgo(new Date(post.date))} />}
         <div className="p-4 md:p-5">
-        <Poster isEdited={post.post.edited} onClickUpdate={editHandler} onClick={deleteHandler} isOwner={!post.isShared && userId==post.post.owner.id} size={post.isShared?40:50} poster={post.post.owner} time={timeAgo(new Date(post.post.date))} />
+        <Poster isEdited={post.post.edited} onClickUpdate={editHandler} onClick={deleteHandler} isOwner={!post.isShared && currentUserId==post.post.owner.id} size={post.isShared?40:50} poster={post.post.owner} time={timeAgo(new Date(post.post.date))} />
             {isEditing ?<UpdatePost onClick={updateHandler} post={post.post} /> :
                 <PostBody
                     post={post.post}
@@ -158,8 +166,9 @@ function Post(props){
 
             {commentShown && (comments != null? comments.map((comment)=> <Comment key={comment.id} comment={comment} />) : <Spin />)}
             <Input
+                memberFullName={props.memberFullName}
                 onSumbit={onAddingComment}
-                userId={userId}
+                userId={currentUserId}
             />
         </div>
     </div>

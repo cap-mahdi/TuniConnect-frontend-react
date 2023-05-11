@@ -10,7 +10,8 @@ export default function ProtectedPage(props) {
       (async()=>{
         const res = await AuthController.getMemberByToken() ;
         setAuth(res.auth) ;
-        setData(res.data) ;
+        const member = JSON.parse(res.data)
+        setData(member) ;
       })() ; 
   } , [])
   useEffect(()=>{
