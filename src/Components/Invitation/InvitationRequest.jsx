@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react';
+
 import Avatar from "../Post/Avatar"
 import {
   BriefcaseIcon,
@@ -23,9 +24,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function InvitationRequest({ friendRequest, onChangeHandler  , id}) {
+export default function InvitationRequest({toggle , width ,  friendRequest, onChangeHandler  , id}) {
 
   const [status , setStatus]=useState("pending")
+  const responsive = {
+    hide: width < 1200 || toggle ? true : false,
+  };
 
   async function handledAcceptButton(){
     const newStatus="Accepted"
@@ -60,7 +64,9 @@ export default function InvitationRequest({ friendRequest, onChangeHandler  , id
     <>
 
       <div
-        className={` sidebar  ${styles['invitation-container']}`}
+        className={` sidebar  ${styles['invitation-container']}  ${toggle ? 'opacity-0 delay-200' : ''} ${
+                responsive.hide ? `${styles['hide']}` : ''
+              } `}
         // key={data.id}
       >
         <h2 className={`text-3xl font-bold leading-7 text-gray-900  ${styles['name']}`}>{friendRequest["sender"]["lastName"]}  {friendRequest["sender"]["firstName"]}</h2>

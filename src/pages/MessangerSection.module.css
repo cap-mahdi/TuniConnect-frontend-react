@@ -18,3 +18,25 @@
   height: 100%;
   width: 60%;
 }
+
+@media screen and (max-width: 1200px){
+  
+  .left {
+    /* background-color: rgb(72, 30, 170); */
+    /* height: 90%; */
+    width: 10rem;
+  }
+  .right {
+    /* background-color: rgb(204, 187, 37); */
+    /* height: 100%; */
+    width: 50%;
+  }
+  .container {
+    
+    /* background-color: rgb(72, 30, 170); */
+  
+    width: 65vw;
+  
+  }
+
+  }

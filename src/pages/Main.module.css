@@ -25,7 +25,7 @@
 .centerDiv {
   /* background-color: rgb(13, 161, 21); */
   /* padding: 0 1%; */
-  width: 60%;
+  width: 65%;
   box-sizing: border-box;
   overflow: scroll;
 }
@@ -35,10 +35,34 @@
 
 .rightSide {
   /* background-color: rgb(79, 31, 141); */
-  width: 20rem;
-  box-sizing: border-box;
+ 
+  width:20rem;
+  height: 85vh  ; 
+  display: flex;
+  flex-direction: column;
+align-items: end;  
+box-sizing: border-box;
+}
+   @media screen and (max-width: 1200px){
+.rightSide{
+  width:1rem;
+  position: fixed;
+  right: 0 ;
 }
 
+.leftSide {
+  /* background-color: red; */
+  width:6rem;
+  box-sizing: border-box;
+}
+.centerDiv {
+  /* background-color: rgb(13, 161, 21); */
+  /* padding: 0 1%; */
+  width: 70%;
+  box-sizing: border-box;
+  overflow: scroll;
+}
+}
 
 
 

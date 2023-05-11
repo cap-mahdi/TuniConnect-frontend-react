@@ -16,21 +16,48 @@ import Spin from '../../Components/Spin';
 
 const SideBarRight = (props) => {
 
-  function ListOfInvits({ friendRequests, setFriendRequests }) {
+  const { memberId } = props;
+  const [toggle, setToggle] = useState(false);
+  const [friendRequests, setFriendRequests] = useState(null);
+  const [width, setWindowWidth] = useState(0);
+
+  
+  useEffect(() => {
+    updateDimensions();
+
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+  const updateDimensions = () => {
+    // console.log(window);
+    const width = window.innerWidth;
+    setWindowWidth(width);
+  };
+
+  useEffect(() => {
+    if (width < 1200) {
+      setToggle(true);
+    } else {
+      setToggle(false);
+    }
+  }, [width]);
+
+
+
+  function ListOfInvits({ friendRequests, setFriendRequests ,toggle , width }) {
     async function hadleReplyeFriendRequest(id) {
       const newFriendRequests = friendRequests.splice(id, 1);
       setFriendRequests(newFriendRequests)
     }
 
     const invits = friendRequests.map((friendRequest, index) => {
-      return <InvitationRequest friendRequest={friendRequest} onChangeHandler={() => { hadleReplyeFriendRequest(index) }} id={index} />
+      return <InvitationRequest toggle={toggle} width={width} friendRequest={friendRequest} onChangeHandler={() => { hadleReplyeFriendRequest(index) }} id={index} />
     })
     return invits
   }
 
-  const { memberId } = props;
-  const [toggle, setToggle] = useState(false);
-  const [friendRequests, setFriendRequests] = useState(null);
+  
+
 
   async function showInvits(memberId) {
     const invitations = await fetchData(() => getFriendRequests(memberId), setFriendRequests);
@@ -44,6 +71,9 @@ const SideBarRight = (props) => {
   useEffect(() => {
     showInvits(memberId)
   }, [friendRequests])
+
+
+
 
 
   if (friendRequests == null) {
@@ -63,9 +93,9 @@ const SideBarRight = (props) => {
 
 
   return (
-    <div className={`sidebar-container  ${styles.container} ${st['container']}`}>
+    <div className={`${toggle ? `${styles['w-t']}` : `${styles['w-o']}`} sidebar-container  ${styles.container}`  }>
 
-      <ListOfInvits friendRequests={friendRequests} onChangeHandler={setFriendRequests} />
+      <ListOfInvits friendRequests={friendRequests} onChangeHandler={setFriendRequests} toggle={toggle} width={width} />
 
     </div>
   );

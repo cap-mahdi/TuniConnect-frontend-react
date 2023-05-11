@@ -20,7 +20,7 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setP
   const [nbrPhotos, setNbrPhotos] = useState(null);
   const [nbrComments, setNbrComments] = useState(null);
   const [nbShares, setNbShares] = useState(null);
-  const [friendRequestSent, setFriendRequestSent] = useState(false);
+  const [friendRequestSent, setFriendRequestSent] = useState(null);
   const [areFriends, setAreFriends] = useState(false)
 
 
@@ -101,6 +101,8 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setP
                   <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i> {data?.address.city || '--'}{' '}
                   {data?.address.state || '--'} {data?.address.country || '--'}
                 </div>
+
+                {friendRequestSent ===null ?<></>: 
                 <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase" >
                   {data?.id !== member?.id ? (
                     !areFriends ? (
@@ -117,6 +119,7 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setP
                   ) : ("")
                   }
                 </div>
+              }
               </div>
             </div>
           </div>

@@ -82,7 +82,9 @@ const handelSubmit = async (e) => {
     return (
         <div className="px-20 py-2 border-2 border-teal-500 rounded-lg bg-white"> 
         
-<form onSubmit={handelSubmit} lassName={`${styles['signUp-form']}`}>
+<form onSubmit={handelSubmit} 
+// className={`${styles['signUp-form']}`}
+>
       <div className="flex" >
         <ImagesHandler coverImageFileSetter={setCoverImageFile} imageFileSetter={setImageFile} />
 
