@@ -28,7 +28,7 @@ const ActivityInfo = (props) => {
           <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
             {props.nbShares!= null ? props.nbShares : '--'}
           </span>
-          <span className="text-sm text-gray-500">Shares</span>
+          <span className="text-sm text-gray-500">Posts</span>
         </div>
       </div>
     );

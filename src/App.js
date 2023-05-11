@@ -6,18 +6,14 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import WebS from './WebS';
 import Home from "./pages/Home" ; 
-import Profile from './Components/Profile/Profile';
+import Profile from './pages/ProfilePage';
 import Messanger from './pages/MessangerSection' ; 
 import SignIn from './pages/SignIn'
-import Home from './pages/Home';
-import Profile from './pages/ProfilePage';
-import Messanger from './pages/MessangerSection';
-import SignIn from './pages/SignIn';
-import SignUpForm from './Components/SignUp/SignUpForm';
 import SignUp from './pages/SignUpPage';
 import ProtectedPage from './API/ProtectedPage';
 import CovoiturageHome from "./pages/CovoiturageHome"
 import SearchPage from './pages/SearchPage';
+import MyTrips from './pages/MyTrips';
 const router = createBrowserRouter([
   {
     path: '/',

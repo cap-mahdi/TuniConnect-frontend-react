@@ -17,7 +17,7 @@ import { useEffect } from 'react';
 
 import styles from './InvitationRequest.module.css';
 import { postData } from '../../API/utilities';
-import { editFriendRequests } from './FriendRequestController';
+import { editFriendRequests } from '../../API/Accounts/FriendRequestController';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -38,7 +38,7 @@ export default function InvitationRequest({ friendRequest, onChangeHandler  , id
     editFriendRequests(postData)
     setTimeout(() => {
       onChangeHandler();
-    }, 20000);
+    }, 5000);
   }
 
   async function handledDeclineButton() {
@@ -52,7 +52,7 @@ export default function InvitationRequest({ friendRequest, onChangeHandler  , id
     editFriendRequests(postData)
     setTimeout(() => {
       onChangeHandler();
-    }, 200000);
+    }, 5000);
   }
 
 

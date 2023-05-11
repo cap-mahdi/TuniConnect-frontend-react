@@ -18,8 +18,9 @@ import Spin from '../Components/Spin';
 import PostInput from '../Components/PostInput/PostInput';
 const ProfilePage = (props) => {
   const { id } = useParams();
-  const [ID,setID] = useState("profile id ", id);
-  console.log("profile page props" , props)
+  console.log("id is ", id);
+  const [data, setData] = useState(null);
+  const [ID,setID] = useState( id);
   const [posts, setPosts] = useState(null);
   const [postExistence,setPostExistence] = useState("waiting");
   const member = props.member;
@@ -41,11 +42,10 @@ const ProfilePage = (props) => {
        }
    }, [posts]);
 
-   const [data, setData] = useState(null);
 
   useEffect(() => {
     console.log("data sent is  ", data);
-  }, [  data]);
+  }, [data]);
 
   // async function  regetPosts(){
   //   setPosts(null);
@@ -103,7 +103,7 @@ async function addPost(postId){
   return (
     <>
 
-          <Profile member= {props.member} setPosts={setPosts} data={data} setData={setData} setID={setID} handleChangeOnProfile={setData} profileId={id} />
+          <Profile member= {props?.member} setPosts={setPosts} data={data} setData={setData} setID={setID} handleChangeOnProfile={setData} profileId={id} />
           {ID == currentUserId ? <PostInput currentUserId={currentUserId} addPost={addPost} /> : null }
           { postExistence=="doNotExist" ? <h1 style={{textAlign:'center'}}>No Availaible posts</h1> :posts ? <ListPost isShowing={isShowing} onClick={showMore} posts={posts} currentUserId={currentUserId}  deletePost={deletePost} updatePost={updatePost} memberFullName={memberFullName}  />: <Spin /> }
 

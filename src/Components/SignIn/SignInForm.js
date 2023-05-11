@@ -3,12 +3,8 @@ import styles from "./SignInStyle.module.css"
 import AuthController from "../../API/Accounts/AuthController";
 import { Link, useNavigate } from "react-router-dom";
 import { set } from "date-fns";
-import React, { useState } from 'react';
-import styles from './SignInStyle.module.css';
-import AuthController from '../../API/Accounts/AuthController';
 import logo from '../../assets/tuniConnect.png';
 
-import { Link, useNavigate } from 'react-router-dom';
 function SignInForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

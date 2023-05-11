@@ -5,15 +5,16 @@ import ProfileImage from './ProfileImage';
 import { Link } from 'react-router-dom';
 import FriendsList from './FriendsList';
 import avatar from '../../assets/avatar.svg';
-import { fetchData, fetchDataWithArgs } from '../../API/utilities';
+import { fetchData, fetchDataWithArgs, getData, postData } from '../../API/utilities';
 import { getFriends, getMemberComments, getMemberLikes, getMemberPhotos, getMemberShares } from '../../API/Accounts/accountsController';
 import Spin from '../Spin';
 import { set } from 'date-fns';
 import { getUserPostsPaginated } from '../../API/Posts/PostController';
+import styles from './Profile.module.css';
 
 
 const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setPosts,setID}) => {
-  console.log("data thta comes", data);
+  console.log("PROFILEE IDDDDDDD", profileId);
   const [friends, setFriends] = useState(null);
   const [nbrLikes, setNbrLikes] = useState(null);
   const [nbrPhotos, setNbrPhotos] = useState(null);
@@ -35,7 +36,8 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setP
 
   useEffect(() => {
     if(data)
-    {fetchDataWithArgs(getFriends, setFriends, data.id)
+    {console.log("data sent is  ", data);
+      fetchDataWithArgs(getFriends, setFriends, data.id)
     fetchDataWithArgs(getMemberLikes, setNbrLikes, data.id);
     fetchDataWithArgs(getMemberPhotos, setNbrPhotos, data.id);
     fetchDataWithArgs(getMemberComments, setNbrComments, data.id);
@@ -47,9 +49,7 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setP
     verifyFriendship(member?.id,profileId);
     verifySendingFriendRequest(member?.id, profileId);
   }, []);
-  useEffect(() => {
-    console.log("shares", nbShares);
-  }, [nbShares]);
+
   function resetToNull(){
     setFriends(null);
     setData(null);
@@ -72,7 +72,6 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setP
     await postData("/friend/request/add", donnees)
     setFriendRequestSent(true);
 
-    // handleChangeOnProfile()
   }
 
 

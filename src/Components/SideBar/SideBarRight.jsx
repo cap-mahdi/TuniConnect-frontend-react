@@ -7,7 +7,7 @@ import UserProfile from './SideBar__SideComponents/UserProfile';
 import styles from './SideBar.module.css';
 import st from './SideBarRight.module.css';
 import InvitationRequest from '../Invitation/InvitationRequest';
-import { getFriendRequests } from '../Invitation/FriendRequestController';
+import { getFriendRequests } from '../../API/Accounts/FriendRequestController';
 import { fetchData } from '../../API/utilities';
 import Spin from '../../Components/Spin';
 
@@ -64,7 +64,6 @@ const SideBarRight = (props) => {
 
   return (
     <div className={`sidebar-container  ${styles.container} ${st['container']}`}>
-      {/* <InvitationRequest friendRequest={friendRequests[0]} />  */}
 
       <ListOfInvits friendRequests={friendRequests} onChangeHandler={setFriendRequests} />
 

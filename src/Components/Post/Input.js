@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addComment } from "../../API/posts/PostController";
+import { addComment } from "../../API/Posts/PostController";
 
 function Input(props){
     const [input,setInput] = useState("");

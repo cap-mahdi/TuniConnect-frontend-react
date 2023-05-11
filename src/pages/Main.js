@@ -27,7 +27,7 @@ const Main = (props) => {
           </div>
           <div className={`${styles['rightSide']}`}>
             {' '}
-            <SideBarRight data={SideBarLeftData} memberId={props?.member.id} />
+            <SideBarRight data={SideBarLeftData} memberId={props?.member?.id} />
           </div>
         </div>
       </div>

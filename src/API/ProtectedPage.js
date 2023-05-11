@@ -9,8 +9,11 @@ export default function ProtectedPage(props) {
       (async()=>{
         const res = await AuthController.getMemberByToken() ;
         setAuth(res.auth) ;
-        const member = JSON.parse(res.data)
-        setData(member) ;
+        // console.log("THE CURRENT RESPONSE  ISSSSSSSSSSSS", res.data);
+        // const member = JSON.parse(res.data);
+        
+
+        setData(res.data) ;
       })() ; 
   } , [])
   useEffect(()=>{

@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import styles from "./PostInput.module.css"
 import { fetchData, postData } from "../../API/utilities";
-import { addPost, getPostTimeline } from "../../API/posts/PostController";
+import { addPost, getPostTimeline } from "../../API/Posts/PostController";
 import { json } from "react-router-dom";
 import PostingBadge from "./PostingBadge";
  function PostInput(props) {

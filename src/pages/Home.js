@@ -1,5 +1,5 @@
 
-import {  getPostPaginated, getPostTimeline } from '../API/posts/PostController';
+import {  getPost, getPostPaginated, getPostTimeline } from '../API/Posts/PostController';
 import react,{ useEffect, useState } from 'react';
 import { fetchData, fetchDataWithArgs } from '../API/utilities';
 import Spin from '../Components/Spin';
