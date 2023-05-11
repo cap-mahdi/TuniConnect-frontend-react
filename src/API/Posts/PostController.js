@@ -8,8 +8,8 @@ export async function likeDislikePost(postId, userId) {
   return postData(`/shared/post/like/${postId}`, { "member_id": userId });
 }
 
-export async function getPost() {
-  return getData(`/shared/post/get/33`);
+export async function getPost(postId) {
+  return getData(`/shared/post/get/${postId}`);
 }
 
 export async function addComment(postId, userId, text) {
@@ -71,8 +71,23 @@ export async function addNotification(data){
 
 //get all the member's notifications
 export async function getNotifications(memberId){
-  return getData(`http://127.0.0.1:8000/member/get/notification/${memberId}`)
+  return getData(`/member/get/notification/${memberId}`)
 }
 
 
 //delete notification
+
+//get number likes of post 
+export async function getPostLikes(postId){
+  return getData('/shared/post/get/likes/'+postId) 
+}
+
+//get unmber comments of post 
+export async function getPostComments(postId){
+  return getData('/shared/post/get/comments/'+postId)
+}
+
+//get user posts paginated
+export async function getUserPostsPaginated(userId,pageNumber,limit = 5) {
+  return getData(`/shared/post/get/user/${userId}?offset=${pageNumber}&limit=${limit}`);
+}

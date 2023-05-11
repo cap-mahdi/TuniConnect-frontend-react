@@ -5,15 +5,24 @@ import { addPost, getPostTimeline } from "../../API/posts/PostController";
 import { json } from "react-router-dom";
 import PostingBadge from "./PostingBadge";
  function PostInput(props) {
+    const currentUserId = props.currentUserId;
     const [input, setInput] = useState("");
     const [image, setImage] = useState(null);
     const [isPosting, setIsPosting] = useState("start");
-    
+    const [file,setFile] = useState(null);
     const handleFileChange = (e) => {
         if (e.target.files[0]) {
-            console.log("change image");
             setImage(e.target.files[0]);
+            const reader = new FileReader();
+            reader.readAsDataURL(e.target.files[0])
+            reader.onload = () => {
+                setFile(reader.result);
+              };
+
+        }else{
+            setFile(null);
         }
+        
     };
 
     const handleInputChange = (e) => {
@@ -22,19 +31,22 @@ import PostingBadge from "./PostingBadge";
 
     const handleSubmit = async (e) => {   
         e.preventDefault();
-        setIsPosting("posting");
+        if(input == "")
+            return;
         const formData = new FormData();
         formData.append("image", image);
         formData.append("text", input);
-        formData.append("member_id", 2);
-        await addPost(formData);
-        props.regetPosts();
+        formData.append("member_id", currentUserId);
+        setIsPosting("posting")
+        const res = await addPost(formData);
+        await props.addPost(res.data.id)
         setIsPosting("done");
         setTimeout(() => {
             setIsPosting("start");
         }, 1000);
         setInput("");
         setImage(null);
+        setFile(null);
 
     };
 
@@ -46,7 +58,7 @@ import PostingBadge from "./PostingBadge";
             <div className={styles["upload_post"]}>
                 <label class="block">
                     <span class="sr-only">Choose photo</span>
-                    <input type="file" class="block w-full text-sm text-gray-500
+                    <input type="file" accept="image/*" class="block w-full text-sm text-gray-500
                     file:mr-4 file:py-2 file:px-4
                     file:rounded-md file:border-0
                     file:text-sm file:font-semibold
@@ -54,10 +66,13 @@ import PostingBadge from "./PostingBadge";
                     hover:file:bg-blue-600
                     "  onChange={handleFileChange} />
                 </label>
-                <button class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm " >
+                
+                
+            </div>
+            {file && (<img style={{marginTop:"20px"}} src={file}/>  )}
+            <button style={{marginTop:"20px"}} class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm " >
                 Post
                 </button> 
-            </div>
 </form>
 
     )

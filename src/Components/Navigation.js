@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Navigation.module.css';
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
@@ -13,6 +13,7 @@ import {
   MagnifyingGlassIcon,
   ChatBubbleOvalLeftEllipsisIcon,
 } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router';
 
 const navigation = [{ name: 'Search', href: '#', current: true }];
 
@@ -20,7 +21,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Navigation({ member }) {
+export default function Navigation() {
+  const navigate  = useNavigate();
+  const [input,setInput] = useState("");
   return (
     <Disclosure as="nav" className={`bg-gray-800 ${styles.widht} `}>
       {({ open }) => (
@@ -59,8 +62,20 @@ export default function Navigation({ member }) {
                           aria-current={item.current ? 'page' : undefined}
                         >
                           <MagnifyingGlassIcon className="h-6 w-6 text-blue-500" />
+                          <form onSubmit={(e) => {
+                            e.preventDefault();
+                              if(input=="")
+                                {
+                                  return;
+                                }
+                              
+                              navigate(`/search?keyword=${encodeURIComponent(input)}`);
 
+                            }
+                            }>
                           <input
+                            onChange={(e) => setInput(e.target.value)}
+                            value={input}
                             type="text"
                             placeholder={item.name}
                             key={item.name}
@@ -72,7 +87,7 @@ export default function Navigation({ member }) {
                               'rounded-md px-3 py-2 text-sm font-medium  ' + `flex ${styles['no-border']} `
                             )}
                             aria-current={item.current ? 'page' : undefined}
-                          ></input>
+                          ></input> </form> 
                         </div>
                       </>
                     ))}

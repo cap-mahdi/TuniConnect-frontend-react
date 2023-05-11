@@ -39,3 +39,28 @@ export async function getMember(id) {
 export async function getFriends(id) {
   return getData('/member/get/friends/' + id);
 }
+
+//get member number of comments
+export async function getMemberComments(id) {
+  return getData('/member/get/number/comments/' + id);
+}
+
+//get member number of likes
+export async function getMemberLikes(id) {
+  return getData('/member/get/number/likes/' + id);
+}
+
+//get member number of shares
+export async function getMemberShares(id) {
+  return getData('/member/get/number/shares/' + id);
+}
+
+//get member number of photos
+export async function getMemberPhotos(id) {
+  return getData('/member/get/number/photos/' + id);
+}
+
+//search member 
+export async function searchMember(search) {
+  return getData('/member/search/' + search);
+}

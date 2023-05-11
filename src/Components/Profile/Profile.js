@@ -5,14 +5,20 @@ import ProfileImage from './ProfileImage';
 import { Link } from 'react-router-dom';
 import FriendsList from './FriendsList';
 import avatar from '../../assets/avatar.svg';
-import { fetchDataWithArgs, getData, postData } from '../../API/utilities';
-import { getFriends } from '../../API/Accounts/accountsController';
-import styles from './Profile.module.css'
+import { fetchData, fetchDataWithArgs } from '../../API/utilities';
+import { getFriends, getMemberComments, getMemberLikes, getMemberPhotos, getMemberShares } from '../../API/Accounts/accountsController';
+import Spin from '../Spin';
+import { set } from 'date-fns';
+import { getUserPostsPaginated } from '../../API/Posts/PostController';
 
 
-
-const Profile = ({ data, member, handleChangeOnProfile , profileId }) => {
-  const [friends, setFriends] = useState([]);
+const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setPosts,setID}) => {
+  console.log("data thta comes", data);
+  const [friends, setFriends] = useState(null);
+  const [nbrLikes, setNbrLikes] = useState(null);
+  const [nbrPhotos, setNbrPhotos] = useState(null);
+  const [nbrComments, setNbrComments] = useState(null);
+  const [nbShares, setNbShares] = useState(null);
   const [friendRequestSent, setFriendRequestSent] = useState(false);
   const [areFriends, setAreFriends] = useState(false)
 
@@ -28,11 +34,51 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId }) => {
   }
 
   useEffect(() => {
+    if(data)
+    {fetchDataWithArgs(getFriends, setFriends, data.id)
+    fetchDataWithArgs(getMemberLikes, setNbrLikes, data.id);
+    fetchDataWithArgs(getMemberPhotos, setNbrPhotos, data.id);
+    fetchDataWithArgs(getMemberComments, setNbrComments, data.id);
+    fetchDataWithArgs(getMemberShares, setNbShares, data.id);}
+
+  }, [data]);
+  useEffect(() => {
     fetchDataWithArgs(getFriends, setFriends, profileId);
     verifyFriendship(member?.id,profileId);
     verifySendingFriendRequest(member?.id, profileId);
   }, []);
+  useEffect(() => {
+    console.log("shares", nbShares);
+  }, [nbShares]);
+  function resetToNull(){
+    setFriends(null);
+    setData(null);
+    setNbrLikes(null);
+    setNbrPhotos(null);
+    setNbrComments(null);
+    setNbShares(null);
+    setPosts(null);
+  }
 
+   useEffect(() => {
+    console.log(friends);
+  }, [friends, friendRequestSent, areFriends ]);
+
+
+  useEffect(() => {
+    console.log("YYOYO3 ", friendRequestSent );
+  }, [friendRequestSent]);
+
+  async function handleAddFriendButtonClick() {
+    const donnees = {
+      sender: member?.id,
+      receiver: data?.id
+    };
+    await postData("/friend/request/add", donnees)
+    setFriendRequestSent(true);
+
+    // handleChangeOnProfile()
+  }
 
   useEffect(() => {
     console.log(friends);
@@ -55,7 +101,6 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId }) => {
   }
 
 
-
   return (
     <main className="profile-page">
       <CoverImage imageUrl={data?.coverPicture} />
@@ -68,7 +113,7 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId }) => {
                   imageUrl={data?.profilePicture ? `http://localhost:8000/images/${data.profilePicture}` : avatar}
                 />
                 <div className="w-full lg:w-4/12 px-4 lg:order-1">
-                  <ActivityInfo nbrFriends={22} nbrPhotos={10} nbrComments={89} />
+                  <ActivityInfo nbrLikes={nbrLikes} nbrPhotos={nbrPhotos} nbrComments={nbrComments} nbShares={nbShares}/>
                 </div>
               </div>
               <div className="text-center mt-12">
@@ -100,7 +145,7 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId }) => {
           </div>
         </div>
       </section>
-      <FriendsList friends={friends} />
+      {friends ? <FriendsList resetToNull={resetToNull} friends={friends} setData={setData} setID={setID} setPosts={setPosts}/>: <Spin />}
     </main>
   );
 };
