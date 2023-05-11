@@ -42,7 +42,7 @@ export default function InvitationRequest({toggle , width ,  friendRequest, onCh
     editFriendRequests(postData)
     setTimeout(() => {
       onChangeHandler();
-    }, 5000);
+    }, 500);
   }
 
   async function handledDeclineButton() {
@@ -56,7 +56,7 @@ export default function InvitationRequest({toggle , width ,  friendRequest, onCh
     editFriendRequests(postData)
     setTimeout(() => {
       onChangeHandler();
-    }, 5000);
+    }, 500);
   }
 
 

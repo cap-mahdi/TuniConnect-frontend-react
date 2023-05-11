@@ -81,10 +81,10 @@ const SideBarRight = (props) => {
   }
   if (friendRequests.length == 0) {
     return (
-      <div className={`sidebar-container  ${styles.container} ${st['container']}`}>
+      <div className={`sidebar-container  ${styles.container}  ${toggle ? `${styles['w-t']}` : `${styles['w-o']}`}`}>
         <div className={`${styles['friend-requests']}`} >
-          you don't have any friend requests
-        </div>
+          {/* you don't have any friend requests */}
+        </div>  
       </div>
 
     )
