@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-
+import style from "./Profile.module.css";
 
 const ActivityInfo = (props) => {
 
 
     return (
-        <div className="flex justify-center py-4 lg:pt-4 pt-8">
+        <div className={`flex justify-center py-4 lg:pt-4 pt-8 ${style["action"]}`}>
         <div className="mr-4 p-3 text-center">
           <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
             {props.nbrLikes!= null ? props.nbrLikes : '--'}

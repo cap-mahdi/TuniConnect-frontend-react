@@ -5,7 +5,7 @@ import SideBarRight from '../Components/SideBar/SideBarRight';
 
 import SideBarLeftData from './Data/Data';
 
-import styles from './Main.module.css';
+import style from './MessangerSection.module.css';
 import Profile from '../Components/Profile/Profile';
 import { useParams } from 'react-router-dom';
 import { getMember } from '../API/Accounts/accountsController';
@@ -104,9 +104,12 @@ async function addPost(postId){
     <>
 
           <Profile member= {props?.member} setPosts={setPosts} data={data} setData={setData} setID={setID} handleChangeOnProfile={setData} profileId={id} />
-          {ID == currentUserId ? <PostInput currentUserId={currentUserId} addPost={addPost} /> : null }
-          { postExistence=="doNotExist" ? <h1 style={{textAlign:'center'}}>No Availaible posts</h1> :posts ? <ListPost isShowing={isShowing} onClick={showMore} posts={posts} currentUserId={currentUserId}  deletePost={deletePost} updatePost={updatePost} memberFullName={memberFullName}  />: <Spin /> }
 
+          {ID == currentUserId ? <PostInput currentUserId={currentUserId} addPost={addPost} /> : null }
+
+
+          { postExistence=="doNotExist" ? <h1 style={{textAlign:'center'}}>No Availaible posts</h1> :posts ?
+           <ListPost isShowing={isShowing} onClick={showMore} posts={posts} currentUserId={currentUserId}  deletePost={deletePost} updatePost={updatePost} memberFullName={memberFullName}  />: <Spin /> }
 
     </>
   );

@@ -79,7 +79,9 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setP
 
 
   return (
-    <main className="profile-page">
+    <main 
+    className="profile-page"
+    >
       <CoverImage imageUrl={data?.coverPicture} />
       <section className="relative pt-16 bg-gray-300">
         <div className="container mx-auto px-4">

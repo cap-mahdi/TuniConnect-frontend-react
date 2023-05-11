@@ -46,7 +46,7 @@ box-sizing: border-box;
    @media screen and (max-width: 1200px){
 .rightSide{
   width:1rem;
-  position: fixed;
+  position: absolute;
   right: 0 ;
 }
 
