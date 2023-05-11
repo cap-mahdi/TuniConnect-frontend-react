@@ -60,14 +60,9 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setP
     setPosts(null);
   }
 
-   useEffect(() => {
-    console.log(friends);
-  }, [friends, friendRequestSent, areFriends ]);
 
 
-  useEffect(() => {
-    console.log("YYOYO3 ", friendRequestSent );
-  }, [friendRequestSent]);
+ 
 
   async function handleAddFriendButtonClick() {
     const donnees = {
@@ -80,25 +75,8 @@ const Profile = ({ data, member, handleChangeOnProfile , profileId ,setData,setP
     // handleChangeOnProfile()
   }
 
-  useEffect(() => {
-    console.log(friends);
-  }, [friends, friendRequestSent, areFriends ]);
 
 
-  useEffect(() => {
-    console.log("YYOYO3 ", friendRequestSent );
-  }, [friendRequestSent]);
-
-  async function handleAddFriendButtonClick() {
-    const donnees = {
-      sender: member?.id,
-      receiver: data?.id
-    };
-    await postData("/friend/request/add", donnees)
-    setFriendRequestSent(true);
-
-    // handleChangeOnProfile()
-  }
 
 
   return (

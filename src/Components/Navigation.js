@@ -21,7 +21,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Navigation() {
+export default function Navigation({ member }) {
   const navigate  = useNavigate();
   const [input,setInput] = useState("");
   return (
