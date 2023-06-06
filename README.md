@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+## Tuniconnect Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Thank you for your interest in Tuniconnect! Follow the steps below to set up and run the web application on your local machine.
 
-## Available Scripts
+### Prerequisites
+- PHP 7.2 or higher
+- Composer (https://getcomposer.org)
+- Node.js (https://nodejs.org)
 
-In the project directory, you can run:
+### Backend Setup
+1. Clone the backend repository:
+git clone https://github.com/azizmass/socialNetwork.git
 
-### `npm start`
+2. Navigate to the backend directory:
+cd socialNetwork
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. Install the required dependencies:
+composer install
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Set up the database:
+- Create a new MySQL database named social_app
+- Run this 2 commands
+  ```
+  symfony console make:migrations
+  symfony console doctrine:migrations:migrate
+  ```
+5.Generating Encryption Keys:
+To generate the encryption keys required for secure token authentication, follow these additional steps:
 
-### `npm run build`
+A. Install OpenSSL from [https://slproweb.com/products/Win32OpenSSL.html]
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+B. Open the OpensSSL terminal and navigate to the Symfony project's root directory.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+C. Run the following command to generate the encryption keypair:
+ ```
+symfony console lexik:jwt:generate-keypair --overwrite
+```
+6.Start mySQL server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+7. Start the backend server:
+symfony console serve
 
-### `npm run eject`
+8. Start the Ratchet server in another terminal:
+php bin/console app:ratchet 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Frontend Setup
+1. Clone the frontend repository:
+git clone https://github.com/Medaminegdoura/socialNetwork-front.git
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Navigate to the frontend directory:
+cd socialNetwork-front
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. Install the required dependencies:
+npm install
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Start the frontend server:
+npm start
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Please note: If you encounter any CORS-related issues, you may need to install the "Allow CORS" Google Chrome extension. You can find and install it from [https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en&fbclid=IwAR2xRuJcu5k0NL720DO6T6XNOuHYOSCcW6fqd25mNIJLLw1Pi7K9hpJwdsI]. Make sure to enable the extension while working on the application and disable it when you're done.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Accessing the Web Application
+Once the backend and frontend servers are running, you can access the Tuniconnect web application by opening your browser and visiting `http://localhost:3000`.
 
-### Code Splitting
+That's it! You should now have the Tuniconnect web application up and running on your local machine.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+If you encounter any issues during the setup process, please feel free to reach out to us for assistance.
 
-### Analyzing the Bundle Size
+ 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Accessing the Web Application
+Once the backend and frontend servers are running, you can access the Tuniconnect web application by opening your browser and visiting `http://localhost:3000`.
 
-### Making a Progressive Web App
+That's it! You should now have the Tuniconnect web application up and running on your local machine.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
